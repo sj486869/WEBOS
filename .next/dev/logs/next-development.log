@@ -1,0 +1,9 @@
+[00:00:01.338] Server  LOG     ✓ Ready in 1064ms
+[00:00:02.376] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:19.352] Server  WARN    ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:19.376] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:20.933] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:34.047] Browser LOG     Starting download for file: fd2e43eb-1c8f-483d-9822-ee6a86459bbb 134218215830311087.jpg
+[00:00:34.890] Browser LOG     Triggering download: 134218215830311087.jpg
+[00:00:34.999] Browser LOG     Download cleanup completed
