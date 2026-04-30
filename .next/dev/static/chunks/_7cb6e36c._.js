@@ -485,9 +485,8 @@ __turbopack_context__.s([
     "createId",
     ()=>createId
 ]);
-function createId(prefix) {
-    const raw = globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`;
-    return prefix ? `${prefix}_${raw}` : raw;
+function createId(prefix = "id") {
+    return `${prefix}_${Math.random().toString(36).slice(2, 9)}_${Date.now().toString(36)}`;
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -499,14 +498,14 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 __turbopack_context__.s([
     "clamp",
     ()=>clamp,
-    "roundTo",
-    ()=>roundTo
+    "lerp",
+    ()=>lerp
 ]);
-function clamp(n, min, max) {
-    return Math.min(max, Math.max(min, n));
+function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
 }
-function roundTo(n, step) {
-    return Math.round(n / step) * step;
+function lerp(a, b, t) {
+    return a + (b - a) * t;
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -2235,7 +2234,6 @@ function moveNode(state, id, targetFolderId) {
     if (!node.parentId) throw new Error("Cannot move root");
     if (!target || target.type !== "folder") throw new Error("Target not a folder");
     if (node.parentId === targetFolderId) return state;
-    // Prevent moving folder into itself/descendant
     if (node.type === "folder") {
         let cur = targetFolderId;
         while(cur){
