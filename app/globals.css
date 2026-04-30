@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --os-bg: #0b0d12;
+  --os-fg: #e7eaf2;
+
+  --os-panel: rgba(20, 22, 30, 0.72);
+  --os-panel-solid: #14161e;
+  --os-border: rgba(231, 234, 242, 0.12);
+  --os-shadow: rgba(0, 0, 0, 0.5);
+
+  --os-accent: #3b82f6;
+  --os-wallpaper: radial-gradient(circle at top, #1b2133, #0b0d12 55%, #07080b);
+
+  --os-radius: 14px;
+}
+
+:root[data-theme="light"] {
+  --os-bg: #f5f6fb;
+  --os-fg: #0b0d12;
+  --os-panel: rgba(255, 255, 255, 0.72);
+  --os-panel-solid: #ffffff;
+  --os-border: rgba(15, 18, 26, 0.10);
+  --os-shadow: rgba(0, 0, 0, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--os-bg);
+  --color-foreground: var(--os-fg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--os-bg);
+  color: var(--os-fg);
+  overflow: hidden;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--os-accent) 30%, transparent);
+}

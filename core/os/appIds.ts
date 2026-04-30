@@ -1,0 +1,25 @@
+export const APP_IDS = [
+  "file-explorer",
+  "notes",
+  "ai-assistant",
+  "system-monitor",
+  "terminal",
+  "settings",
+  "image-gallery",
+  "video-player",
+  "media-editor",
+  "search-app",
+  "duplicate-finder",
+  "file-converter",
+  "document-viewer",
+  "file-organizer",
+  "internet-browser",
+  "code-editor",
+  "advanced-terminal",
+  "vscode-editor",
+  "pro-video-player",
+  "website-builder",
+  "dashboard",
+] as const;
+
+export type AppId = (typeof APP_IDS)[number];
