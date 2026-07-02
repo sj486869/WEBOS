@@ -28,7 +28,7 @@ type WindowManagerState = {
   activeId: WindowId | null;
   nextZ: number;
 
-  openApp: (appId: AppId) => WindowId;
+  openApp: (appId: AppId, args?: any) => WindowId;
   closeWindow: (id: WindowId) => void;
   focusWindow: (id: WindowId) => void;
 
@@ -77,7 +77,7 @@ export const useWindowStore = create<WindowManagerState>()(
       activeId: null,
       nextZ: 10,
 
-      openApp: (appId) => {
+      openApp: (appId, args) => {
         const def = appRegistry[appId];
 
         if (def.singleton) {
@@ -86,6 +86,14 @@ export const useWindowStore = create<WindowManagerState>()(
           );
           if (existing) {
             if (existing.isMinimized) get().restoreWindow(existing.id);
+            if (args) {
+              set((s) => ({
+                windows: {
+                  ...s.windows,
+                  [existing.id]: { ...existing, args },
+                },
+              }));
+            }
             get().focusWindow(existing.id);
             return existing.id;
           }
@@ -116,6 +124,7 @@ export const useWindowStore = create<WindowManagerState>()(
           lifecycle: "opening",
           createdAt: now,
           updatedAt: now,
+          args,
         };
 
         set((s) => ({

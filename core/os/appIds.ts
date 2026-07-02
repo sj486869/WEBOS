@@ -14,12 +14,13 @@ export const APP_IDS = [
   "document-viewer",
   "file-organizer",
   "internet-browser",
-  "code-editor",
   "advanced-terminal",
   "vscode-editor",
   "pro-video-player",
   "website-builder",
+  "users",
   "dashboard",
+  "watch-together",
 ] as const;
 
 export type AppId = (typeof APP_IDS)[number];

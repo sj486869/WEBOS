@@ -270,7 +270,7 @@ function AIAssistantApp({}) {
         columnNumber: 5
     }, this);
 }
-_s(AIAssistantApp, "fOEXlmBcA2VWabxT4u+G5a3bcd4=", false, function() {
+_s(AIAssistantApp, "51JTq/FkewGbZjVY60OHpcZrH1c=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],

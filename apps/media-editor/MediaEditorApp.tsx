@@ -25,8 +25,12 @@ export function MediaEditorApp({}: AppComponentProps) {
 
   useEffect(() => {
     loadFiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     loadStats().then(data => { if (data) setStats(data); });
-  }, [loadFiles, loadStats]);
+  }, [files, loadStats]);
 
   const filteredFiles = files.filter((f) => {
     if (selectedFilter === 'all') return true;
@@ -153,7 +157,7 @@ export function MediaEditorApp({}: AppComponentProps) {
                   <div className="relative mb-2 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded aspect-square flex items-center justify-center">
                     {file.file_type === 'image' ? (
                       <img
-                        src={api.files.downloadUrl(file.id)}
+                        src={file.source === 'media-server' ? api.mediaServer.streamUrl(file.id) : api.files.downloadUrl(file.id)}
                         alt={file.original_filename}
                         className="h-full w-full object-cover rounded"
                       />

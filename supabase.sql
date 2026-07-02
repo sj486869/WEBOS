@@ -32,3 +32,17 @@ create policy "Allow all operations on files" on public.files for all using (tru
 create policy "Allow public read on uploads" on storage.objects for select using ( bucket_id = 'uploads' );
 create policy "Allow insert on uploads" on storage.objects for insert with check ( bucket_id = 'uploads' );
 create policy "Allow delete on uploads" on storage.objects for delete using ( bucket_id = 'uploads' );
+
+-- 6. Create os_users table
+create table public.os_users (
+    id text primary key,
+    username text not null unique,
+    password text not null,
+    role text not null,
+    avatar text,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- 7. Enable RLS on os_users
+alter table public.os_users enable row level security;
+create policy "Allow all operations on os_users" on public.os_users for all using (true);

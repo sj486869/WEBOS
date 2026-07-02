@@ -7,6 +7,9 @@ import type { AppComponentProps } from "@/core/os/appRegistry";
 import { useVfsStore } from "@/store/vfsStore";
 import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
 import { useFileManager } from "@/utils/useFileManager";
+import { useAuthStore } from "@/store/authStore";
+import { useWindowStore } from "@/store/windowStore";
+import { api } from "@/utils/api";
 
 function isFolder(n: VfsNode): n is Extract<VfsNode, { type: "folder" }> {
   return n.type === "folder";
@@ -21,11 +24,15 @@ function NodeRow({
   onOpen,
   onRename,
   onDelete,
+  onContextMenu,
+  canEdit,
 }: {
   node: VfsNode;
   onOpen: () => void;
   onRename: () => void;
   onDelete: () => void;
+  onContextMenu?: (e: React.MouseEvent) => void;
+  canEdit?: boolean;
 }) {
   return (
     <div
@@ -36,26 +43,31 @@ function NodeRow({
         e.dataTransfer.effectAllowed = "move";
       }}
       onDoubleClick={onOpen}
+      onContextMenu={onContextMenu}
     >
       <div className="min-w-0 flex-1 truncate">
         <span className="mr-2 text-xs opacity-70">{node.type === "folder" ? "📁" : "📄"}</span>
         {node.name}
       </div>
       <div className="flex items-center gap-1">
-        <button
-          className="rounded-md p-1 hover:bg-black/10 dark:hover:bg-white/10"
-          onClick={onRename}
-          title="Rename"
-        >
-          <Pencil className="h-4 w-4" />
-        </button>
-        <button
-          className="rounded-md p-1 hover:bg-black/10 dark:hover:bg-white/10"
-          onClick={onDelete}
-          title="Delete"
-        >
-          <Trash2 className="h-4 w-4" />
-        </button>
+        {canEdit !== false && (
+          <>
+            <button
+              className="rounded-md p-1 hover:bg-black/10 dark:hover:bg-white/10"
+              onClick={onRename}
+              title="Rename"
+            >
+              <Pencil className="h-4 w-4" />
+            </button>
+            <button
+              className="rounded-md p-1 hover:bg-black/10 dark:hover:bg-white/10"
+              onClick={onDelete}
+              title="Delete"
+            >
+              <Trash2 className="h-4 w-4" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -127,6 +139,7 @@ export function FileExplorerApp({}: AppComponentProps) {
   const rename = useVfsStore((s) => s.rename);
   const rm = useVfsStore((s) => s.rm);
   const mv = useVfsStore((s) => s.mv);
+  const openApp = useWindowStore((s) => s.openApp);
 
   // Backend file manager
   const { 
@@ -143,6 +156,20 @@ export function FileExplorerApp({}: AppComponentProps) {
   const [viewMode, setViewMode] = useState<"local" | "cloud">("local");
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string>("");
+
+  const users = useAuthStore((s) => s.users);
+  const currentUser = useAuthStore((s) => s.currentUser);
+  const updateNodePermissions = useVfsStore((s) => s.updatePermissions);
+
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; id: string; type: "local" | "cloud" } | null>(null);
+  const [shareModal, setShareModal] = useState<{ id: string; type: "local" | "cloud", sharedWith: {userId: string, canEdit: boolean}[] } | null>(null);
+
+  // Close context menu on click outside
+  useEffect(() => {
+    const handleClick = () => setContextMenu(null);
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   useEffect(() => {
     if (hydrated) setCurrentId(vfs.rootId);
@@ -167,6 +194,9 @@ export function FileExplorerApp({}: AppComponentProps) {
     setUploadStatus("Uploading...");
     let successCount = 0;
     let failedCount = 0;
+    
+    // Save target reference before async await
+    const target = e.currentTarget;
 
     try {
       for (const file of files) {
@@ -195,7 +225,7 @@ export function FileExplorerApp({}: AppComponentProps) {
       setTimeout(() => setUploadStatus(""), 3000);
     } finally {
       setUploading(false);
-      e.currentTarget.value = "";
+      target.value = "";
     }
   };
 
@@ -321,10 +351,17 @@ export function FileExplorerApp({}: AppComponentProps) {
           <div className="grid grid-cols-1 gap-1">
             {viewMode === "local" ? (
               <>
-                {children.map((n) => (
+                {children.map((n) => {
+                  let canEdit = false;
+                  if (currentUser?.role === "admin") canEdit = true;
+                  else if (n.ownerId === currentUser?.id) canEdit = true;
+                  else if (n.sharedWith?.some(s => s.userId === currentUser?.id && s.canEdit)) canEdit = true;
+
+                  return (
                   <NodeRow
                     key={n.id}
                     node={n}
+                    canEdit={canEdit}
                     onOpen={() => {
                       if (isFolder(n)) setCurrentId(n.id);
                     }}
@@ -337,8 +374,13 @@ export function FileExplorerApp({}: AppComponentProps) {
                       if (!confirm(`Delete ${n.name}?`)) return;
                       rm(n.id);
                     }}
+                    onContextMenu={(e) => {
+                      e.preventDefault();
+                      setContextMenu({ x: e.clientX, y: e.clientY, id: n.id, type: "local" });
+                    }}
                   />
-                ))}
+                  );
+                })}
                 {children.length === 0 ? (
                   <div className="p-4 text-sm opacity-60">Empty folder</div>
                 ) : null}
@@ -354,10 +396,25 @@ export function FileExplorerApp({}: AppComponentProps) {
                 ) : backendFiles.length === 0 ? (
                   <div className="p-4 text-sm opacity-60">No files uploaded</div>
                 ) : (
-                  backendFiles.map((file) => (
+                  backendFiles.map((file) => {
+                    let canEdit = false;
+                    if (currentUser?.role === "admin") canEdit = true;
+                    else if (file.ownerId === currentUser?.id) canEdit = true;
+                    else if (file.sharedWith?.some((s: any) => typeof s === 'object' ? s.userId === currentUser?.id && s.canEdit : s === currentUser?.id)) canEdit = true;
+
+                    return (
                     <div
                       key={file.id}
-                      className="flex items-center justify-between gap-2 rounded-lg px-2 py-1.5 hover:bg-black/5 dark:hover:bg-white/5"
+                      className="flex items-center justify-between gap-2 rounded-lg px-2 py-1.5 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer"
+                      onDoubleClick={() => {
+                        if (file.file_type === "video") {
+                          openApp("pro-video-player", { fileId: file.id, source: file.source || 'supabase' });
+                        }
+                      }}
+                      onContextMenu={(e) => {
+                        e.preventDefault();
+                        setContextMenu({ x: e.clientX, y: e.clientY, id: file.id, type: "cloud" });
+                      }}
                     >
                       <div className="min-w-0 flex-1 truncate">
                         <span className="mr-2 text-xs opacity-70">
@@ -384,20 +441,23 @@ export function FileExplorerApp({}: AppComponentProps) {
                         >
                           <Download className="h-4 w-4" />
                         </button>
-                        <button
-                          className="rounded-md p-1 hover:bg-black/10 dark:hover:bg-white/10"
-                          onClick={() => {
-                            if (!confirm(`Delete ${file.original_filename}?`))
-                              return;
-                            deleteFile(file.id);
-                          }}
-                          title="Delete"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
+                        {canEdit !== false && (
+                          <button
+                            className="rounded-md p-1 hover:bg-black/10 dark:hover:bg-white/10"
+                            onClick={() => {
+                              if (!confirm(`Delete ${file.original_filename}?`))
+                                return;
+                              deleteFile(file.id);
+                            }}
+                            title="Delete"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        )}
                       </div>
                     </div>
-                  ))
+                  );
+                  })
                 )}
               </>
             )}
@@ -410,6 +470,151 @@ export function FileExplorerApp({}: AppComponentProps) {
             : `${backendFiles.length} files uploaded`}
         </footer>
       </section>
+
+      {/* Context Menu */}
+      {contextMenu && (() => {
+        let isPublic = false;
+        if (contextMenu.type === "local") {
+          isPublic = vfs.nodes[contextMenu.id]?.visibility === "public";
+        } else {
+          const bf = backendFiles.find((f: any) => f.fileId === contextMenu.id || f.id === contextMenu.id);
+          isPublic = bf?.visibility === "public";
+        }
+        
+        return (
+        <div
+          className="fixed z-50 min-w-[150px] rounded-md border border-[color:var(--os-border)] bg-white p-1 shadow-lg dark:bg-[#2d2d2d]"
+          style={{ top: contextMenu.y, left: contextMenu.x }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {!isPublic && (
+            <button
+              className="w-full rounded px-2 py-1.5 text-left text-sm hover:bg-black/10 dark:hover:bg-white/10"
+            onClick={async () => {
+              if (contextMenu.type === "local") {
+                updateNodePermissions(contextMenu.id, "public", []);
+              } else {
+                await api.mediaServer.updatePermissions(contextMenu.id, "public", []);
+                loadFiles();
+              }
+              setContextMenu(null);
+            }}
+          >
+            Make Public
+          </button>
+          )}
+          {isPublic && (
+          <button
+            className="w-full rounded px-2 py-1.5 text-left text-sm hover:bg-black/10 dark:hover:bg-white/10"
+            onClick={async () => {
+              if (contextMenu.type === "local") {
+                updateNodePermissions(contextMenu.id, "private", []);
+              } else {
+                await api.mediaServer.updatePermissions(contextMenu.id, "private", []);
+                loadFiles();
+              }
+              setContextMenu(null);
+            }}
+          >
+            Make Private
+          </button>
+          )}
+          <button
+            className="w-full rounded px-2 py-1.5 text-left text-sm hover:bg-black/10 dark:hover:bg-white/10"
+            onClick={() => {
+              let currentShared: { userId: string, canEdit: boolean }[] = [];
+              if (contextMenu.type === "local") {
+                currentShared = vfs.nodes[contextMenu.id]?.sharedWith || [];
+              } else {
+                const bf = backendFiles.find((f: any) => f.fileId === contextMenu.id || f.id === contextMenu.id);
+                if (bf && bf.sharedWith && Array.isArray(bf.sharedWith)) {
+                  currentShared = bf.sharedWith.map((s: any) => typeof s === 'string' ? { userId: s, canEdit: false } : s);
+                }
+              }
+              setShareModal({ id: contextMenu.id, type: contextMenu.type, sharedWith: currentShared });
+              setContextMenu(null);
+            }}
+          >
+            Share...
+          </button>
+        </div>
+        );
+      })()}
+
+      {/* Share Modal */}
+      {shareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="w-[300px] rounded-lg border border-[color:var(--os-border)] bg-white p-4 shadow-xl dark:bg-[#2d2d2d]">
+            <h3 className="mb-4 text-lg font-semibold">Share File</h3>
+            <div className="max-h-60 overflow-auto border-y border-[color:var(--os-border)] py-2">
+              {users.map((u) => {
+                const shareObj = shareModal.sharedWith.find(s => s.userId === u.id);
+                const isShared = !!shareObj;
+                const canEdit = shareObj?.canEdit || false;
+                
+                return (
+                <div key={u.id} className="flex items-center justify-between p-1 text-sm border-b border-[color:var(--os-border)] last:border-0">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isShared}
+                      onChange={(e) => {
+                        setShareModal((prev) => {
+                          if (!prev) return null;
+                          const checked = e.target.checked;
+                          const sharedWith = checked
+                            ? [...prev.sharedWith, { userId: u.id, canEdit: false }]
+                            : prev.sharedWith.filter((s) => s.userId !== u.id);
+                          return { ...prev, sharedWith };
+                        });
+                      }}
+                    />
+                    {u.username} ({u.role})
+                  </label>
+                  {isShared && (
+                    <label className="flex items-center gap-1 text-xs text-blue-500">
+                      <input
+                        type="checkbox"
+                        checked={canEdit}
+                        onChange={(e) => {
+                          setShareModal((prev) => {
+                            if (!prev) return null;
+                            const sharedWith = prev.sharedWith.map(s => s.userId === u.id ? { ...s, canEdit: e.target.checked } : s);
+                            return { ...prev, sharedWith };
+                          });
+                        }}
+                      />
+                      Can Edit
+                    </label>
+                  )}
+                </div>
+              )})}
+            </div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                className="rounded px-3 py-1 text-sm hover:bg-black/10 dark:hover:bg-white/10"
+                onClick={() => setShareModal(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+                onClick={async () => {
+                  if (shareModal.type === "local") {
+                    updateNodePermissions(shareModal.id, "private", shareModal.sharedWith);
+                  } else {
+                    await api.mediaServer.updatePermissions(shareModal.id, "private", shareModal.sharedWith);
+                    loadFiles();
+                  }
+                  setShareModal(null);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

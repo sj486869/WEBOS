@@ -1,6 +1,2330 @@
-[00:00:01.029] Server  LOG     ✓ Ready in 780ms
-[00:00:01.047] Server  WARN    ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+[00:00:02.400] Server  LOG     ✓ Ready in 1790ms
+[00:00:04.120] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:36.657] Browser ERROR   unhandledRejection: TypeError: Cannot set properties of null (setting 'value')
+[00:04:42.383] Browser ERROR   unhandledRejection: TypeError: Cannot set properties of null (setting 'value')
+[00:08:35.791] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating borderLeft border
+[00:08:35.791] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating borderLeft border
+[00:08:37.359] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating borderLeft border
+[00:08:37.359] Browser ERROR   %s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values. Updating borderLeft border
+[00:10:13.804] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:12.779] Browser ERROR   {}
+[00:15:12.779] Browser ERROR   {}
+[00:15:30.225] Server  LOG     ✓ Compiled in 166ms
+[00:37:43.472] Server  WARN    ⚠ Cross origin request detected from 9lruarn4vq.loclx.io to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
-[00:00:01.724] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.993] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.331] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:37:43.965] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:37:53.265] Browser ERROR   Failed to load local files from media server. {}
+[00:37:53.549] Browser ERROR   Failed to load local files from media server. {}
+[00:38:09.212] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:45:02.057] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:51.829] Server  LOG     ✓ Compiled in 97ms
+[00:48:04.575] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:16.766] Browser ERROR   Failed to load local files from media server. {}
+[00:48:17.251] Browser ERROR   Failed to load local files from media server. {}
+[00:48:26.321] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:29.522] Browser ERROR   Failed to load local files from media server. {}
+[00:48:29.767] Browser ERROR   Failed to load local files from media server. {}
+[00:48:39.895] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:43.190] Browser ERROR   Failed to load local files from media server. {}
+[00:48:43.445] Browser ERROR   Failed to load local files from media server. {}
+[00:48:52.698] Server  LOG     ✓ Compiled in 81ms
+[00:48:59.720] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:02.821] Browser ERROR   Failed to load local files from media server. {}
+[00:49:03.070] Browser ERROR   Failed to load local files from media server. {}
+[00:49:10.314] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:40.997] Server  LOG     ✓ Compiled in 65ms
+[00:49:46.909] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:59.076] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:50:07.384] Browser ERROR   Failed to load local files from media server. {}
+[00:50:07.642] Browser ERROR   Failed to load local files from media server. {}
+[00:50:20.480] Browser ERROR   Failed to load local files from media server. {}
+[00:50:29.639] Server  LOG     ✓ Compiled in 80ms
+[00:50:33.242] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:50:36.064] Browser ERROR   Failed to load local files from media server. {}
+[00:50:36.338] Browser ERROR   Failed to load local files from media server. {}
+[00:50:41.604] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:50:46.309] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:52:16.799] Browser ERROR   {}
+[00:52:16.799] Browser ERROR   {}
+[00:52:54.375] Server  LOG     ✓ Compiled in 83ms
+[00:53:17.597] Server  LOG     ✓ Compiled in 499ms
+[00:53:32.888] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:58:12.508] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:58:52.512] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:29.599] Server  LOG     ✓ Compiled in 89ms
+[00:59:30.418] Server  LOG     ✓ Compiled in 259ms
+[00:59:30.591] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:45.419] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:50.383] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:59.556] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:00:06.710] Browser ERROR   Failed to load local files from media server. {}
+[01:00:06.982] Browser ERROR   Failed to load local files from media server. {}
+[01:00:37.435] Browser ERROR   Failed to load local files from media server. {}
+[01:00:37.677] Browser ERROR   Failed to load local files from media server. {}
+[01:01:00.693] Browser ERROR   {}
+[01:01:00.957] Browser ERROR   {}
+[01:01:25.997] Server  LOG     ✓ Compiled in 154ms
+[01:02:41.718] Browser ERROR   {}
+[01:02:41.960] Browser ERROR   {}
+[01:02:52.069] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:03:07.595] Server  LOG     ✓ Compiled in 88ms
+[01:03:13.850] Browser ERROR   Failed to load local files from media server. {}
+[01:03:14.139] Browser ERROR   Failed to load local files from media server. {}
+[01:03:43.782] Browser ERROR   {}
+[01:03:44.040] Browser ERROR   {}
+[01:05:03.516] Browser ERROR   Failed to load local files from media server. {}
+[01:05:03.783] Browser ERROR   Failed to load local files from media server. {}
+[01:05:10.253] Browser ERROR   Failed to load local files from media server. {}
+[01:05:10.520] Browser ERROR   Failed to load local files from media server. {}
+[01:05:11.778] Browser ERROR   uncaughtError: ReferenceError: msLoading is not defined
+[01:05:36.790] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:05:38.320] Browser ERROR   uncaughtError: ReferenceError: msLoading is not defined
+[01:05:39.337] Browser ERROR   {}
+[01:05:39.498] Browser ERROR   Failed to load local files from media server. {}
+[01:05:39.603] Browser ERROR   {}
+[01:05:41.686] Browser ERROR   Failed to load local files from media server. {}
+[01:05:41.867] Browser ERROR   Failed to load local files from media server. {}
+[01:05:44.620] Browser ERROR   Failed to load local files from media server. {}
+[01:05:44.620] Browser ERROR   Failed to load local files from media server. {}
+[01:05:46.377] Browser ERROR   Failed to load local files from media server. {}
+[01:06:39.712] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[01:06:39.967] Server  LOG     ✓ Compiled in 81ms
+[01:06:40.102] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:06:43.618] Browser ERROR   {}
+[01:06:43.618] Browser ERROR   Failed to load local files from media server. {}
+[01:06:43.618] Browser ERROR   {}
+[01:06:45.612] Browser ERROR   Failed to load local files from media server. {}
+[01:06:45.612] Browser ERROR   Failed to load local files from media server. {}
+[01:06:48.623] Browser ERROR   Failed to load local files from media server. {}
+[01:06:48.623] Browser ERROR   Failed to load local files from media server. {}
+[01:06:50.622] Browser ERROR   Failed to load local files from media server. {}
+[01:07:00.565] Server  LOG     ✓ Compiled in 74ms
+[01:07:01.617] Browser ERROR   uncaughtError: ReferenceError: useOsStore is not defined
+[01:07:07.280] Server  LOG     ✓ Compiled in 82ms
+[01:07:07.609] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:07.610] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:21.621] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:21.621] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:28.615] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:28.615] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:34.612] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:34.612] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:34.613] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:34.613] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:40.784] Server  LOG     ✓ Compiled in 74ms
+[01:07:40.893] Server  LOG     ✓ Compiled in 74ms
+[01:07:41.612] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:41.612] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:48.707] Server  LOG     ✓ Compiled in 67ms
+[01:07:48.994] Server  LOG     ✓ Compiled in 90ms
+[01:07:49.614] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:07:49.614] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:00.996] Server  ERROR   ⨯ ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+
+./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+
+./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+[01:08:01.386] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.386] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.386] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.504] Browser ERROR   uncaughtError: Error: ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+[01:08:01.667] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.667] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.667] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.667] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.667] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:01.667] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:02.621] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:05.446] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:05.446] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:05.446] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:05.621] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:05.622] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:05.622] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.120] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.120] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.120] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.628] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.628] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.628] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.920] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.920] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:06.920] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:07.620] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:07.620] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:07.620] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.151] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.151] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.151] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.622] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.622] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.622] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.761] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.762] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.762] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:10.809] Server  ERROR   ⨯ ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+
+./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+
+./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+[01:08:11.065] Browser ERROR   uncaughtError: Error: ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+
+
+[01:08:11.278] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.278] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.278] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.278] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.278] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.278] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.608] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/advanced-terminal/AdvancedTerminalApp.tsx:6:1
+Export useOsStore doesn't exist in target module
+  4 | import { useState, useEffect, useRef } from 'react';
+  5 | import type { AppComponentProps } from '@/core/os/appRegistry';
+> 6 | import { useOsStore } from "@/store/osStore";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { api } from "@/utils/api";
+  8 |
+  9 | interface Command {
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/advanced-terminal/AdvancedTerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/terminal/TerminalApp.tsx:7:1
+Export useOsStore doesn't exist in target module
+   5 | import type { AppComponentProps } from "@/core/os/appRegistry";
+   6 | import { useVfsStore } from "@/store/vfsStore";
+>  7 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { api } from "@/utils/api";
+   9 | import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
+  10 |
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/terminal/TerminalApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:11.609] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:26.839] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:27.056] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:08:27.610] Browser ERROR   ./apps/vscode-editor/VSCodeEditorApp.tsx:12:1
+Export useOsStore doesn't exist in target module
+  10 | import Editor from '@monaco-editor/react';
+  11 | import { api } from '@/utils/api';
+> 12 | import { useOsStore } from "@/store/osStore";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | interface OpenTab {
+  15 |   id: string; // path
+
+The export useOsStore was not found in module [project]/store/osStore.ts [app-client] (ecmascript).
+Did you mean to import useOSStore?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Client Component Browser:
+    ./apps/vscode-editor/VSCodeEditorApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:08:39.384] Browser ERROR   Failed to load local files from media server. {}
+[01:08:39.616] Browser ERROR   Failed to load local files from media server. {}
+[01:10:23.779] Server  LOG     ✓ Compiled in 92ms
+[01:10:23.884] Browser ERROR   ./apps/pro-video-player/ProVideoPlayerApp.tsx:573:14
+Parsing ecmascript source code failed
+  571 |                 </div>
+  572 |               </>
+> 573 |             )}
+      |              ^
+  574 |           </div>
+  575 |         )}
+  576 |       </div>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Client Component Browser:
+    ./apps/pro-video-player/ProVideoPlayerApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:10:24.622] Browser ERROR   ./apps/pro-video-player/ProVideoPlayerApp.tsx:573:14
+Parsing ecmascript source code failed
+  571 |                 </div>
+  572 |               </>
+> 573 |             )}
+      |              ^
+  574 |           </div>
+  575 |         )}
+  576 |       </div>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Client Component Browser:
+    ./apps/pro-video-player/ProVideoPlayerApp.tsx [Client Component Browser]
+    ./core/os/appRegistry.tsx [Client Component Browser]
+    ./store/windowStore.ts [Client Component Browser]
+    ./core/os/OSRoot.tsx [Client Component Browser]
+    ./core/os/OSRoot.tsx [Server Component]
+    ./app/page.tsx [Server Component]
+[01:11:57.546] Server  LOG     ✓ Compiled in 77ms
+[01:14:50.006] Server  LOG     ✓ Compiled in 62ms
+[01:14:50.161] Server  LOG     ✓ Compiled in 81ms

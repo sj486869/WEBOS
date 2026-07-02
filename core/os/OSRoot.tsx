@@ -8,6 +8,7 @@ import { WindowLayer } from "@/core/window-manager/WindowLayer";
 import { useOSStore } from "@/store/osStore";
 import { useVfsStore } from "@/store/vfsStore";
 import { useWindowStore } from "@/store/windowStore";
+import { useAuthStore } from "@/store/authStore";
 import { LoginScreen } from "./LoginScreen";
 import { AnimatePresence } from "framer-motion";
 
@@ -16,9 +17,17 @@ function applyTheme(theme: "light" | "dark") {
 }
 
 export function OSRoot() {
-  const { theme, accent, wallpaper, animationsEnabled, isLoggedIn } = useOSStore();
+  const { theme, accent, wallpaper, animationsEnabled } = useOSStore();
+  const { currentUser, initAuth } = useAuthStore();
+  const isLoggedIn = !!currentUser;
+  
   const initVfs = useVfsStore((s) => s.init);
   const hydrated = useVfsStore((s) => s.hydrated);
+
+  // Hydrate Auth from Supabase
+  useEffect(() => {
+    initAuth().catch(() => {});
+  }, [initAuth]);
 
   const cycleFocus = useWindowStore((s) => s.cycleFocus);
   const openApp = useWindowStore((s) => s.openApp);

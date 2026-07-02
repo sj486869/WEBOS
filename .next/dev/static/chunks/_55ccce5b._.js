@@ -12,9 +12,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$copy$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Copy$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/copy.js [app-client] (ecmascript) <export default as Copy>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$play$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Play$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/play.js [app-client] (ecmascript) <export default as Play>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$authStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/store/authStore.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/api.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
+;
 ;
 ;
 const COMMON_COMMANDS = [
@@ -64,6 +68,9 @@ function readCommandHistory() {
 }
 function AdvancedTerminalApp({}) {
     _s();
+    const currentUser = (0, __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$authStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"])({
+        "AdvancedTerminalApp.useAuthStore[currentUser]": (s)=>s.currentUser
+    }["AdvancedTerminalApp.useAuthStore[currentUser]"]);
     const [commands, setCommands] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [input, setInput] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [inputHistory, setInputHistory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(readCommandHistory);
@@ -84,50 +91,6 @@ function AdvancedTerminalApp({}) {
     const saveHistory = (newHistory)=>{
         setInputHistory(newHistory);
         localStorage.setItem('terminal-history', JSON.stringify(newHistory));
-    };
-    const simulateCommandExecution = (cmd)=>{
-        return new Promise((resolve)=>{
-            setTimeout(()=>{
-                // Simulate different command outputs
-                if (cmd === 'whoami') {
-                    resolve('suman_jana');
-                } else if (cmd === 'pwd') {
-                    resolve('C:\\Users\\Suman Jana\\Desktop\\web-os-desktop');
-                } else if (cmd === 'node --version') {
-                    resolve('v18.16.0');
-                } else if (cmd === 'npm --version') {
-                    resolve('9.6.7');
-                } else if (cmd === 'python --version') {
-                    resolve('Python 3.11.0');
-                } else if (cmd === 'git --version') {
-                    resolve('git version 2.40.0.windows.1');
-                } else if (cmd === 'date') {
-                    resolve(new Date().toString());
-                } else if (cmd.startsWith('echo ')) {
-                    resolve(cmd.substring(5).replace(/"/g, ''));
-                } else if (cmd === 'ls' || cmd === 'dir') {
-                    resolve('apps\nbackend\npublic\ncomponents\ncore\nstore\nutils\npackage.json\ntsconfig.json');
-                } else if (cmd === 'clear' || cmd === 'cls') {
-                    setCommands([]);
-                    resolve('');
-                } else if (cmd === 'help') {
-                    resolve(`Available Commands:
-- whoami: Show current user
-- pwd: Print working directory
-- date: Show current date/time
-- echo [text]: Echo text
-- ls/dir: List directory contents
-- clear/cls: Clear terminal
-- help: Show this help
-- node --version: Node version
-- npm --version: NPM version
-- python --version: Python version
-- git --version: Git version`);
-                } else {
-                    resolve(`Command executed: ${cmd}\n(Note: Terminal is simulated in browser)`);
-                }
-            }, 800);
-        });
     };
     const handleExecuteCommand = async ()=>{
         if (!input.trim()) return;
@@ -156,11 +119,23 @@ function AdvancedTerminalApp({}) {
         setInput('');
         setShowQuickCommands(false);
         try {
-            const output = await simulateCommandExecution(input);
+            if (input.trim() === 'clear' || input.trim() === 'cls') {
+                setCommands([]);
+                return;
+            }
+            // Check current user role via API
+            const res = await __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["api"].workspace.runTerminal(input, currentUser?.role || 'guest');
+            let outputText = '';
+            if (res.stdout) outputText += res.stdout;
+            if (res.stderr) outputText += (outputText ? '\n' : '') + res.stderr;
+            if (res.error) outputText += (outputText ? '\n' : '') + `Error: ${res.error}`;
+            if (!outputText && res.code === 0) {
+                outputText = 'Command executed successfully (no output).';
+            }
             setCommands((prev)=>prev.map((cmd)=>cmd.id === commandId ? {
                         ...cmd,
-                        output,
-                        status: 'success'
+                        output: outputText,
+                        status: res.code === 0 ? 'success' : 'error'
                     } : cmd));
         } catch (err) {
             const errorMsg = err instanceof Error ? err.message : 'Unknown error';
@@ -211,14 +186,14 @@ function AdvancedTerminalApp({}) {
                                 className: "h-5 w-5"
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 190,
+                                lineNumber: 163,
                                 columnNumber: 11
                             }, this),
                             "Advanced Terminal"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 189,
+                        lineNumber: 162,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -229,20 +204,20 @@ function AdvancedTerminalApp({}) {
                                 className: "h-4 w-4"
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 197,
+                                lineNumber: 170,
                                 columnNumber: 11
                             }, this),
                             "Clear"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 193,
+                        lineNumber: 166,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                lineNumber: 188,
+                lineNumber: 161,
                 columnNumber: 7
             }, this),
             showQuickCommands && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -260,7 +235,7 @@ function AdvancedTerminalApp({}) {
                                 children: cmd.cmd
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 215,
+                                lineNumber: 188,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -268,18 +243,18 @@ function AdvancedTerminalApp({}) {
                                 children: cmd.desc
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 216,
+                                lineNumber: 189,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, idx, true, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 206,
+                        lineNumber: 179,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                lineNumber: 204,
+                lineNumber: 177,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -292,27 +267,27 @@ function AdvancedTerminalApp({}) {
                                 children: "$ Advanced Terminal"
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 226,
+                                lineNumber: 199,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "Type 'help' for available commands"
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 227,
+                                lineNumber: 200,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "Or press Ctrl+Space to see quick commands"
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 228,
+                                lineNumber: 201,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 225,
+                        lineNumber: 198,
                         columnNumber: 11
                     }, this),
                     commands.map((cmd)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -328,7 +303,7 @@ function AdvancedTerminalApp({}) {
                                                     children: "$"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                                    lineNumber: 237,
+                                                    lineNumber: 210,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -336,13 +311,13 @@ function AdvancedTerminalApp({}) {
                                                     children: cmd.text
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                                    lineNumber: 238,
+                                                    lineNumber: 211,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 209,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -352,18 +327,18 @@ function AdvancedTerminalApp({}) {
                                                 className: "h-3 w-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                                lineNumber: 244,
+                                                lineNumber: 217,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                            lineNumber: 240,
+                                            lineNumber: 213,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                    lineNumber: 235,
+                                    lineNumber: 208,
                                     columnNumber: 13
                                 }, this),
                                 cmd.status === 'executing' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -371,7 +346,7 @@ function AdvancedTerminalApp({}) {
                                     children: "⌛ Executing..."
                                 }, void 0, false, {
                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                    lineNumber: 250,
+                                    lineNumber: 223,
                                     columnNumber: 15
                                 }, this),
                                 cmd.output && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("pre", {
@@ -379,7 +354,7 @@ function AdvancedTerminalApp({}) {
                                     children: cmd.output
                                 }, void 0, false, {
                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                    lineNumber: 255,
+                                    lineNumber: 228,
                                     columnNumber: 15
                                 }, this),
                                 cmd.status === 'error' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -387,26 +362,26 @@ function AdvancedTerminalApp({}) {
                                     children: cmd.output
                                 }, void 0, false, {
                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 233,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, cmd.id, true, {
                             fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                            lineNumber: 233,
+                            lineNumber: 206,
                             columnNumber: 11
                         }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         ref: terminalEndRef
                     }, void 0, false, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 265,
+                        lineNumber: 238,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                lineNumber: 223,
+                lineNumber: 196,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -420,7 +395,7 @@ function AdvancedTerminalApp({}) {
                                 children: "$"
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 271,
+                                lineNumber: 244,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -447,7 +422,7 @@ function AdvancedTerminalApp({}) {
                                 autoFocus: true
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 272,
+                                lineNumber: 245,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -457,18 +432,18 @@ function AdvancedTerminalApp({}) {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                    lineNumber: 299,
+                                    lineNumber: 272,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                                lineNumber: 295,
+                                lineNumber: 268,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 270,
+                        lineNumber: 243,
                         columnNumber: 9
                     }, this),
                     inputHistory.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -480,23 +455,27 @@ function AdvancedTerminalApp({}) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                        lineNumber: 305,
+                        lineNumber: 278,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-                lineNumber: 269,
+                lineNumber: 242,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/advanced-terminal/AdvancedTerminalApp.tsx",
-        lineNumber: 186,
+        lineNumber: 159,
         columnNumber: 5
     }, this);
 }
-_s(AdvancedTerminalApp, "gaF70nRxJukyvLbeU7+KbJDRUCo=");
+_s(AdvancedTerminalApp, "11X7Yl8aJdyPMtoUp8QXp4p2zhY=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$authStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"]
+    ];
+});
 _c = AdvancedTerminalApp;
 var _c;
 __turbopack_context__.k.register(_c, "AdvancedTerminalApp");

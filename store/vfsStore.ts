@@ -14,7 +14,9 @@ import {
   renameNode,
   resolvePath,
   writeFile,
+  updateNodePermissions,
 } from "@/utils/vfs/ops";
+import { useAuthStore } from "@/store/authStore";
 
 const VFS_KEY = "vfs";
 
@@ -36,6 +38,7 @@ type VfsStoreState = {
   rename: (id: VfsNodeId, name: string) => void;
   rm: (id: VfsNodeId) => void;
   mv: (id: VfsNodeId, targetFolderId: VfsNodeId) => void;
+  updatePermissions: (id: VfsNodeId, visibility: 'public' | 'private', sharedWith: { userId: string, canEdit: boolean }[]) => void;
 };
 
 export const useVfsStore = create<VfsStoreState>((set, get) => ({
@@ -75,16 +78,27 @@ export const useVfsStore = create<VfsStoreState>((set, get) => ({
 
   resolve: (absPath) => resolvePath(get().vfs, absPath),
 
-  list: (folderId) => listChildren(get().vfs, folderId),
+  list: (folderId) => {
+    const user = useAuthStore.getState().currentUser;
+    return listChildren(get().vfs, folderId).filter((n) => {
+      if (user?.role === "admin") return true;
+      if (n.ownerId === user?.id) return true;
+      if (n.visibility === "public") return true;
+      if (n.sharedWith?.some(s => typeof s === 'string' ? s === user?.id : s.userId === user?.id)) return true;
+      return false;
+    });
+  },
 
   mkdir: (parentId, name) => {
-    const { next, id } = createFolder(get().vfs, parentId, name);
+    const user = useAuthStore.getState().currentUser;
+    const { next, id } = createFolder(get().vfs, parentId, name, user?.id);
     set({ vfs: next });
     return id;
   },
 
   touch: (parentId, name, content) => {
-    const { next, id } = createFile(get().vfs, parentId, name, content ?? "", "text/plain");
+    const user = useAuthStore.getState().currentUser;
+    const { next, id } = createFile(get().vfs, parentId, name, content ?? "", "text/plain", user?.id);
     set({ vfs: next });
     return id;
   },
@@ -103,6 +117,10 @@ export const useVfsStore = create<VfsStoreState>((set, get) => ({
 
   mv: (id, targetFolderId) => {
     set({ vfs: moveNode(get().vfs, id, targetFolderId) });
+  },
+
+  updatePermissions: (id, visibility, sharedWith) => {
+    set({ vfs: updateNodePermissions(get().vfs, id, visibility, sharedWith) });
   },
 }));
 

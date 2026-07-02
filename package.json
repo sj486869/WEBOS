@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^2.10.0",
+    "@monaco-editor/react": "^4.7.0",
     "@supabase/supabase-js": "^2.105.1",
     "framer-motion": "^12.26.2",
     "idb": "^8.0.3",

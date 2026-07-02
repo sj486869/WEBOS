@@ -140,7 +140,7 @@ self.__SERVER_FILES_MANIFEST={
       "isExperimentalCompile": false
     }
   },
-  "appDir": "C:\\Users\\rimbi\\OneDrive\\Desktop\\web-os-desktop",
+  "appDir": "C:\\Users\\rimbi\\Downloads\\WEBOS-main\\WEBOS-main",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

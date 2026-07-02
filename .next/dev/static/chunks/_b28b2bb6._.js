@@ -531,7 +531,7 @@ function CodeEditorApp({}) {
         columnNumber: 5
     }, this);
 }
-_s(CodeEditorApp, "x6+5xHcQ9IkvKghS+wXEFNHnbFo=");
+_s(CodeEditorApp, "Wx9qOWRNM3nmmocNWZiGffEwdHo=");
 _c = CodeEditorApp;
 var _c;
 __turbopack_context__.k.register(_c, "CodeEditorApp");

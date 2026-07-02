@@ -3,6 +3,8 @@
 import { Terminal, Trash2, Copy, Play } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { AppComponentProps } from '@/core/os/appRegistry';
+import { useAuthStore } from "@/store/authStore";
+import { api } from "@/utils/api";
 
 interface Command {
   id: string;
@@ -40,6 +42,7 @@ function readCommandHistory(): CommandHistory[] {
 }
 
 export function AdvancedTerminalApp({}: AppComponentProps) {
+  const currentUser = useAuthStore((s) => s.currentUser);
   const [commands, setCommands] = useState<Command[]>([]);
   const [input, setInput] = useState('');
   const [inputHistory, setInputHistory] = useState<CommandHistory[]>(readCommandHistory);
@@ -56,51 +59,6 @@ export function AdvancedTerminalApp({}: AppComponentProps) {
   const saveHistory = (newHistory: CommandHistory[]) => {
     setInputHistory(newHistory);
     localStorage.setItem('terminal-history', JSON.stringify(newHistory));
-  };
-
-  const simulateCommandExecution = (cmd: string): Promise<string> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simulate different command outputs
-        if (cmd === 'whoami') {
-          resolve('suman_jana');
-        } else if (cmd === 'pwd') {
-          resolve('C:\\Users\\Suman Jana\\Desktop\\web-os-desktop');
-        } else if (cmd === 'node --version') {
-          resolve('v18.16.0');
-        } else if (cmd === 'npm --version') {
-          resolve('9.6.7');
-        } else if (cmd === 'python --version') {
-          resolve('Python 3.11.0');
-        } else if (cmd === 'git --version') {
-          resolve('git version 2.40.0.windows.1');
-        } else if (cmd === 'date') {
-          resolve(new Date().toString());
-        } else if (cmd.startsWith('echo ')) {
-          resolve(cmd.substring(5).replace(/"/g, ''));
-        } else if (cmd === 'ls' || cmd === 'dir') {
-          resolve('apps\nbackend\npublic\ncomponents\ncore\nstore\nutils\npackage.json\ntsconfig.json');
-        } else if (cmd === 'clear' || cmd === 'cls') {
-          setCommands([]);
-          resolve('');
-        } else if (cmd === 'help') {
-          resolve(`Available Commands:
-- whoami: Show current user
-- pwd: Print working directory
-- date: Show current date/time
-- echo [text]: Echo text
-- ls/dir: List directory contents
-- clear/cls: Clear terminal
-- help: Show this help
-- node --version: Node version
-- npm --version: NPM version
-- python --version: Python version
-- git --version: Git version`);
-        } else {
-          resolve(`Command executed: ${cmd}\n(Note: Terminal is simulated in browser)`);
-        }
-      }, 800);
-    });
   };
 
   const handleExecuteCommand = async () => {
@@ -128,16 +86,31 @@ export function AdvancedTerminalApp({}: AppComponentProps) {
     setShowQuickCommands(false);
 
     try {
-      const output = await simulateCommandExecution(input);
+      if (input.trim() === 'clear' || input.trim() === 'cls') {
+        setCommands([]);
+        return;
+      }
+
+      // Check current user role via API
+      const res = await api.workspace.runTerminal(input, currentUser?.role || 'guest');
+      
+      let outputText = '';
+      if (res.stdout) outputText += res.stdout;
+      if (res.stderr) outputText += (outputText ? '\n' : '') + res.stderr;
+      if (res.error) outputText += (outputText ? '\n' : '') + `Error: ${res.error}`;
+      
+      if (!outputText && res.code === 0) {
+        outputText = 'Command executed successfully (no output).';
+      }
 
       setCommands((prev) =>
         prev.map((cmd) =>
           cmd.id === commandId
-            ? { ...cmd, output, status: 'success' }
+            ? { ...cmd, output: outputText, status: res.code === 0 ? 'success' : 'error' }
             : cmd
         )
       );
-    } catch (err) {
+    } catch (err: any) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error';
       setCommands((prev) =>
         prev.map((cmd) =>

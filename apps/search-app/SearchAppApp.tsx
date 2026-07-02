@@ -19,15 +19,12 @@ export function SearchAppApp({}: AppComponentProps) {
   }, [loadFiles]);
 
   const searchResults = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return [];
-    }
-
-    const query = searchQuery.toLowerCase();
+    const query = searchQuery.toLowerCase().trim();
 
     return files.filter((file) => {
       // Text search
       const matchesQuery =
+        !query ||
         file.original_filename.toLowerCase().includes(query) ||
         file.file_type.toLowerCase().includes(query);
 
@@ -126,14 +123,7 @@ export function SearchAppApp({}: AppComponentProps) {
 
       {/* Results */}
       <div className="flex-1 overflow-auto">
-        {searchQuery.trim() === '' ? (
-          <div className="flex h-full items-center justify-center text-center">
-            <div>
-              <Search className="mx-auto mb-2 h-8 w-8 opacity-30" />
-              <p className="text-sm opacity-60">Enter search terms to find files</p>
-            </div>
-          </div>
-        ) : searchResults.length === 0 ? (
+        {searchResults.length === 0 ? (
           <div className="flex h-full items-center justify-center text-center">
             <div>
               <Search className="mx-auto mb-2 h-8 w-8 opacity-30" />

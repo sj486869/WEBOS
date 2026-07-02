@@ -77,26 +77,24 @@ export function InternetBrowserApp({}: AppComponentProps) {
   const handleNavigate = (url: string) => {
     setIsLoading(true);
 
-    // Simulate loading
-    setTimeout(() => {
-      let finalUrl = url;
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        finalUrl = 'https://' + url;
-      }
+    let finalUrl = url;
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      finalUrl = 'https://' + url;
+    }
 
-      const title = new URL(finalUrl).hostname;
-      const page: BrowserPage = {
-        url: finalUrl,
-        title: title || 'Web Page',
-      };
+    let title = 'Web Page';
+    try { title = new URL(finalUrl).hostname; } catch(e) {}
 
-      const newHistory = [...history.slice(0, historyIndex + 1), page];
-      saveHistory(newHistory);
-      setHistoryIndex(newHistory.length - 1);
-      setCurrentUrl(finalUrl);
-      setUrlInput(finalUrl);
-      setIsLoading(false);
-    }, 1000);
+    const page: BrowserPage = {
+      url: finalUrl,
+      title: title,
+    };
+
+    const newHistory = [...history.slice(0, historyIndex + 1), page];
+    saveHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+    setCurrentUrl(finalUrl);
+    setUrlInput(finalUrl);
   };
 
   const handleBack = () => {
@@ -305,59 +303,23 @@ export function InternetBrowserApp({}: AppComponentProps) {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 overflow-auto bg-white dark:bg-black">
-        {isLoading ? (
-          <div className="flex items-center justify-center h-full">
+      <div className="flex-1 overflow-hidden bg-white dark:bg-black relative">
+        {isLoading && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-sm">
             <div className="text-center">
               <div className="mb-3 text-3xl animate-spin">⌛</div>
-              <p className="opacity-60">Loading page...</p>
-            </div>
-          </div>
-        ) : (
-          <div className="p-6 max-w-4xl mx-auto">
-            <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
-              <p className="text-xs opacity-70 mb-2">Current Page:</p>
-              <p className="font-mono text-sm break-all">{currentUrl}</p>
-              <p className="text-xs opacity-60 mt-2">
-                {history[historyIndex]?.title || 'Loading...'}
-              </p>
-            </div>
-
-            <div className="prose dark:prose-invert max-w-none text-sm">
-              <h2>🌐 Web Browser</h2>
-              <p>
-                This is a web browsing interface. You can:
-              </p>
-              <ul>
-                <li><strong>Navigate:</strong> Enter URL and press Enter or click Go</li>
-                <li><strong>Back/Forward:</strong> Use navigation buttons</li>
-                <li><strong>Bookmark:</strong> Click the star icon to save pages</li>
-                <li><strong>History:</strong> View all visited pages</li>
-                <li><strong>Refresh:</strong> Reload the current page</li>
-              </ul>
-
-              <h3>Popular Sites:</h3>
-              <div className="grid grid-cols-2 gap-2 mt-3">
-                {[
-                  { title: 'Google', url: 'google.com' },
-                  { title: 'GitHub', url: 'github.com' },
-                  { title: 'Stack Overflow', url: 'stackoverflow.com' },
-                  { title: 'MDN Web Docs', url: 'developer.mozilla.org' },
-                  { title: 'YouTube', url: 'youtube.com' },
-                  { title: 'Twitter', url: 'twitter.com' },
-                ].map((site) => (
-                  <button
-                    key={site.url}
-                    onClick={() => handleNavigate(site.url)}
-                    className="p-2 rounded border border-blue-300 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-left text-xs"
-                  >
-                    {site.title}
-                  </button>
-                ))}
-              </div>
+              <p className="opacity-80 text-sm font-medium">Loading {currentUrl}...</p>
             </div>
           </div>
         )}
+        <iframe 
+          key={currentUrl}
+          src={currentUrl} 
+          className="w-full h-full border-none bg-white" 
+          sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+          onLoad={() => setIsLoading(false)}
+          onError={() => setIsLoading(false)}
+        />
       </div>
 
       {/* Status Bar */}

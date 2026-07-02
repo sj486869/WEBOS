@@ -9,9 +9,13 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/store/vfsStore.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$authStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/store/authStore.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/api.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
+;
 ;
 ;
 function isFolder(n) {
@@ -84,7 +88,10 @@ function TerminalApp({}) {
                 }
             ]);
     }
-    function run(cmdline) {
+    const currentUser = (0, __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$authStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"])({
+        "TerminalApp.useAuthStore[currentUser]": (s)=>s.currentUser
+    }["TerminalApp.useAuthStore[currentUser]"]);
+    async function run(cmdline) {
         const trimmed = cmdline.trim();
         if (!trimmed) return;
         setLines((l)=>[
@@ -96,101 +103,33 @@ function TerminalApp({}) {
             ]);
         const [cmd, ...rest] = trimmed.split(/\s+/);
         const arg = rest.join(" ");
+        // Keep some local commands for navigation
         try {
-            switch(cmd){
-                case "help":
-                    println([
-                        "Commands:",
-                        "  ls",
-                        "  cd <path>",
-                        "  mkdir <name>",
-                        "  touch <name>",
-                        "  rm <name>",
-                        "  clear",
-                        "  whoami",
-                        "  date",
-                        "  neofetch"
-                    ].join("\n"));
-                    break;
-                case "clear":
-                    setLines([]);
-                    break;
-                case "whoami":
-                    println("guest");
-                    break;
-                case "date":
-                    println(new Date().toString());
-                    break;
-                case "neofetch":
-                    println([
-                        "      _      __      ____  ____",
-                        " __  / | /| / /__  / __ \\/ __/",
-                        "/ _ \/  |/ |/ / _ \/ /_/ / _/  ",
-                        "\\___/_/|__/\__/\___/\____/_/    ",
-                        "",
-                        "Web OS Desktop (Next.js)"
-                    ].join("\n"));
-                    break;
-                case "ls":
-                    {
-                        const nodes = list(cwdId);
-                        const names = nodes.map((n)=>n.type === "folder" ? `${n.name}/` : n.name).join("  ");
-                        println(names || "");
-                        break;
-                    }
-                case "cd":
-                    {
-                        const nextPath = arg ? joinPath(getPath(cwdId), arg) : "/";
-                        const node = resolve(nextPath);
-                        if (!node) {
-                            println(`cd: no such file or directory: ${arg}`);
-                            break;
-                        }
-                        if (!isFolder(node)) {
-                            println(`cd: not a directory: ${arg}`);
-                            break;
-                        }
-                        setCwdId(node.id);
-                        break;
-                    }
-                case "mkdir":
-                    {
-                        if (!arg) {
-                            println("mkdir: missing name");
-                            break;
-                        }
-                        mkdir(cwdId, arg);
-                        break;
-                    }
-                case "touch":
-                    {
-                        if (!arg) {
-                            println("touch: missing name");
-                            break;
-                        }
-                        touch(cwdId, arg, "");
-                        break;
-                    }
-                case "rm":
-                    {
-                        if (!arg) {
-                            println("rm: missing name");
-                            break;
-                        }
-                        const nodes = list(cwdId);
-                        const match = nodes.find((n)=>n.name === arg);
-                        if (!match) {
-                            println(`rm: no such file: ${arg}`);
-                            break;
-                        }
-                        rm(match.id);
-                        break;
-                    }
-                default:
-                    println(`command not found: ${cmd}`);
+            if (cmd === "clear") {
+                setLines([]);
+                return;
             }
+            if (cmd === "cd") {
+                const nextPath = arg ? joinPath(getPath(cwdId), arg) : "/";
+                const node = resolve(nextPath);
+                if (!node) {
+                    println(`cd: no such file or directory: ${arg}`);
+                    return;
+                }
+                if (!isFolder(node)) {
+                    println(`cd: not a directory: ${arg}`);
+                    return;
+                }
+                setCwdId(node.id);
+                return;
+            }
+            // Execute remotely on backend
+            const res = await __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["api"].workspace.runTerminal(`cd ${getPath(cwdId)} && ${trimmed}`, currentUser?.role || 'guest');
+            if (res.stdout) println(res.stdout);
+            if (res.stderr) println(res.stderr);
+            if (res.error) println(`Error: ${res.error}`);
         } catch (e) {
-            println(`error: ${e.message}`);
+            println(e.message || "Execution failed");
         }
     }
     if (!hydrated) {
@@ -199,7 +138,7 @@ function TerminalApp({}) {
             children: "Booting terminal…"
         }, void 0, false, {
             fileName: "[project]/apps/terminal/TerminalApp.tsx",
-            lineNumber: 160,
+            lineNumber: 97,
             columnNumber: 12
         }, this);
     }
@@ -214,20 +153,20 @@ function TerminalApp({}) {
                             children: l.text
                         }, i, false, {
                             fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                            lineNumber: 167,
+                            lineNumber: 104,
                             columnNumber: 11
                         }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         ref: bottomRef
                     }, void 0, false, {
                         fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                        lineNumber: 174,
+                        lineNumber: 111,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                lineNumber: 165,
+                lineNumber: 102,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -246,7 +185,7 @@ function TerminalApp({}) {
                                 children: prompt
                             }, void 0, false, {
                                 fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                                lineNumber: 185,
+                                lineNumber: 122,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -257,33 +196,33 @@ function TerminalApp({}) {
                                 spellCheck: false
                             }, void 0, false, {
                                 fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                                lineNumber: 186,
+                                lineNumber: 123,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                        lineNumber: 184,
+                        lineNumber: 121,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                    lineNumber: 177,
+                    lineNumber: 114,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/terminal/TerminalApp.tsx",
-                lineNumber: 176,
+                lineNumber: 113,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/terminal/TerminalApp.tsx",
-        lineNumber: 164,
+        lineNumber: 101,
         columnNumber: 5
     }, this);
 }
-_s(TerminalApp, "2959+8HXv3vlX2DWIOTm7VZlYFQ=", false, function() {
+_s(TerminalApp, "naBji1SEuh/RCibySFozy8eDfsg=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
@@ -292,7 +231,8 @@ _s(TerminalApp, "2959+8HXv3vlX2DWIOTm7VZlYFQ=", false, function() {
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$vfsStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useVfsStore"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$store$2f$authStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"]
     ];
 });
 _c = TerminalApp;

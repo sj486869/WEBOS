@@ -75,7 +75,8 @@ export function ensureUniqueName(
 export function createFolder(
   state: VfsState,
   parentId: VfsNodeId,
-  name: string
+  name: string,
+  ownerId?: string | null
 ): { next: VfsState; id: VfsNodeId } {
   const parent = state.nodes[parentId];
   if (!parent || parent.type !== "folder") throw new Error("Parent is not a folder");
@@ -91,6 +92,9 @@ export function createFolder(
     children: [],
     createdAt: now,
     updatedAt: now,
+    ownerId: ownerId || null,
+    visibility: 'private',
+    sharedWith: [],
   };
 
   const nextParent: VfsFolderNode = {
@@ -113,7 +117,8 @@ export function createFile(
   parentId: VfsNodeId,
   name: string,
   content = "",
-  mime = "text/plain"
+  mime = "text/plain",
+  ownerId?: string | null
 ): { next: VfsState; id: VfsNodeId } {
   const parent = state.nodes[parentId];
   if (!parent || parent.type !== "folder") throw new Error("Parent is not a folder");
@@ -130,6 +135,9 @@ export function createFile(
     mime,
     createdAt: now,
     updatedAt: now,
+    ownerId: ownerId || null,
+    visibility: 'private',
+    sharedWith: [],
   };
 
   const nextParent: VfsFolderNode = {
@@ -156,6 +164,24 @@ export function writeFile(state: VfsState, fileId: VfsNodeId, content: string): 
     nodes: {
       ...state.nodes,
       [fileId]: { ...node, content, updatedAt: Date.now() },
+    },
+  };
+}
+
+export function updateNodePermissions(
+  state: VfsState,
+  id: VfsNodeId,
+  visibility: 'public' | 'private',
+  sharedWith: { userId: string, canEdit: boolean }[]
+): VfsState {
+  const node = state.nodes[id];
+  if (!node) throw new Error("Not found");
+
+  return {
+    ...state,
+    nodes: {
+      ...state.nodes,
+      [id]: { ...node, visibility, sharedWith, updatedAt: Date.now() },
     },
   };
 }

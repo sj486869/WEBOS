@@ -30,6 +30,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/video.js [app-client] (ecmascript) <export default as Video>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Layers$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layers.js [app-client] (ecmascript) <export default as Layers>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2d$increasing$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart4$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chart-column-increasing.js [app-client] (ecmascript) <export default as BarChart4>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/users.js [app-client] (ecmascript) <export default as Users>");
+;
 ;
 ;
 ;
@@ -234,7 +236,16 @@ const WebsiteBuilderApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$no
     ssr: false
 });
 _c39 = WebsiteBuilderApp;
-const DashboardApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(_c40 = ()=>__turbopack_context__.A("[project]/apps/dashboard/DashboardApp.tsx [app-client] (ecmascript, next/dynamic entry, async loader)").then((m)=>m.DashboardApp), {
+const WatchTogetherApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(_c40 = ()=>__turbopack_context__.A("[project]/apps/watch-together/WatchTogetherApp.tsx [app-client] (ecmascript, next/dynamic entry, async loader)").then((m)=>m.WatchTogetherApp), {
+    loadableGenerated: {
+        modules: [
+            "[project]/apps/watch-together/WatchTogetherApp.tsx [app-client] (ecmascript, next/dynamic entry)"
+        ]
+    },
+    ssr: false
+});
+_c41 = WatchTogetherApp;
+const DashboardApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(_c42 = ()=>__turbopack_context__.A("[project]/apps/dashboard/DashboardApp.tsx [app-client] (ecmascript, next/dynamic entry, async loader)").then((m)=>m.DashboardApp), {
     loadableGenerated: {
         modules: [
             "[project]/apps/dashboard/DashboardApp.tsx [app-client] (ecmascript, next/dynamic entry)"
@@ -242,7 +253,7 @@ const DashboardApp = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
     },
     ssr: false
 });
-_c41 = DashboardApp;
+_c43 = DashboardApp;
 const appRegistry = {
     "file-explorer": {
         id: "file-explorer",
@@ -366,6 +377,12 @@ const appRegistry = {
         icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Layers$3e$__["Layers"],
         component: WebsiteBuilderApp
     },
+    "watch-together": {
+        id: "watch-together",
+        title: "Watch Together",
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"],
+        component: WatchTogetherApp
+    },
     dashboard: {
         id: "dashboard",
         title: "Dashboard",
@@ -375,7 +392,7 @@ const appRegistry = {
     }
 };
 const installedApps = Object.values(appRegistry);
-var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7, _c8, _c9, _c10, _c11, _c12, _c13, _c14, _c15, _c16, _c17, _c18, _c19, _c20, _c21, _c22, _c23, _c24, _c25, _c26, _c27, _c28, _c29, _c30, _c31, _c32, _c33, _c34, _c35, _c36, _c37, _c38, _c39, _c40, _c41;
+var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7, _c8, _c9, _c10, _c11, _c12, _c13, _c14, _c15, _c16, _c17, _c18, _c19, _c20, _c21, _c22, _c23, _c24, _c25, _c26, _c27, _c28, _c29, _c30, _c31, _c32, _c33, _c34, _c35, _c36, _c37, _c38, _c39, _c40, _c41, _c42, _c43;
 __turbopack_context__.k.register(_c, "FileExplorerApp$dynamic");
 __turbopack_context__.k.register(_c1, "FileExplorerApp");
 __turbopack_context__.k.register(_c2, "NotesApp$dynamic");
@@ -416,8 +433,10 @@ __turbopack_context__.k.register(_c36, "ProVideoPlayerApp$dynamic");
 __turbopack_context__.k.register(_c37, "ProVideoPlayerApp");
 __turbopack_context__.k.register(_c38, "WebsiteBuilderApp$dynamic");
 __turbopack_context__.k.register(_c39, "WebsiteBuilderApp");
-__turbopack_context__.k.register(_c40, "DashboardApp$dynamic");
-__turbopack_context__.k.register(_c41, "DashboardApp");
+__turbopack_context__.k.register(_c40, "WatchTogetherApp$dynamic");
+__turbopack_context__.k.register(_c41, "WatchTogetherApp");
+__turbopack_context__.k.register(_c42, "DashboardApp$dynamic");
+__turbopack_context__.k.register(_c43, "DashboardApp");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

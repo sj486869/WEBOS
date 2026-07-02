@@ -6,6 +6,9 @@ export type VfsNodeBase = {
   parentId: VfsNodeId | null;
   createdAt: number;
   updatedAt: number;
+  ownerId?: string | null;
+  visibility?: 'public' | 'private';
+  sharedWith?: { userId: string, canEdit: boolean }[];
 };
 
 export type VfsFolderNode = VfsNodeBase & {

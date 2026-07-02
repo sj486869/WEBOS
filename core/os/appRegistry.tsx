@@ -24,11 +24,13 @@ import {
   Video,
   Layers,
   BarChart4,
+  Users,
+  MonitorSmartphone,
 } from "lucide-react";
 
 import type { AppId } from "@/core/os/appIds";
 
-export type AppComponentProps = { windowId: string };
+export type AppComponentProps = { windowId: string; args?: any };
 
 export type AppDefinition = {
   id: AppId;
@@ -102,10 +104,7 @@ const InternetBrowserApp = dynamic(
   () => import("@/apps/internet-browser/InternetBrowserApp").then((m) => m.InternetBrowserApp),
   { ssr: false }
 );
-const CodeEditorApp = dynamic(
-  () => import("@/apps/code-editor/CodeEditorApp").then((m) => m.CodeEditorApp),
-  { ssr: false }
-);
+
 const AdvancedTerminalApp = dynamic(
   () => import("@/apps/advanced-terminal/AdvancedTerminalApp").then((m) => m.AdvancedTerminalApp),
   { ssr: false }
@@ -119,7 +118,21 @@ const ProVideoPlayerApp = dynamic(
   { ssr: false }
 );
 const WebsiteBuilderApp = dynamic(
-  () => import("@/apps/website-builder/WebsiteBuilderApp").then((m) => m.WebsiteBuilderApp),
+  () =>
+    import("@/apps/website-builder/WebsiteBuilderApp").then(
+      (m) => m.WebsiteBuilderApp
+    ),
+  { ssr: false }
+);
+const UsersApp = dynamic(
+  () => import("@/apps/users/UsersApp").then((m) => m.UsersApp),
+  { ssr: false }
+);
+const WatchTogetherApp = dynamic(
+  () =>
+    import("@/apps/watch-together/WatchTogetherApp").then(
+      (m) => m.WatchTogetherApp
+    ),
   { ssr: false }
 );
 const DashboardApp = dynamic(
@@ -220,12 +233,7 @@ export const appRegistry: Record<AppId, AppDefinition> = {
     icon: Globe,
     component: InternetBrowserApp,
   },
-  "code-editor": {
-    id: "code-editor",
-    title: "Code Editor",
-    icon: Code2,
-    component: CodeEditorApp,
-  },
+
   "advanced-terminal": {
     id: "advanced-terminal",
     title: "Advanced Terminal",
@@ -243,12 +251,25 @@ export const appRegistry: Record<AppId, AppDefinition> = {
     title: "Pro Video Player",
     icon: Video,
     component: ProVideoPlayerApp,
+    singleton: true,
   },
   "website-builder": {
     id: "website-builder",
     title: "Website Builder",
     icon: Layers,
     component: WebsiteBuilderApp,
+  },
+  users: {
+    id: "users",
+    title: "Users & Security",
+    icon: Users,
+    component: UsersApp,
+  },
+  "watch-together": {
+    id: "watch-together",
+    title: "Watch Together",
+    icon: Users,
+    component: WatchTogetherApp,
   },
   dashboard: {
     id: "dashboard",

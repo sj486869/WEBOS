@@ -952,7 +952,7 @@ function VSCodeEditorApp({}) {
         columnNumber: 5
     }, this);
 }
-_s(VSCodeEditorApp, "xyDlE6nBSqWDbuzyXkJekzvUrn0=");
+_s(VSCodeEditorApp, "mV9fnDD4TBFblq52TcUsTTaGqdE=");
 _c = VSCodeEditorApp;
 var _c;
 __turbopack_context__.k.register(_c, "VSCodeEditorApp");

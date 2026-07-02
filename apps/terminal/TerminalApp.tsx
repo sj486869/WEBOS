@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { AppComponentProps } from "@/core/os/appRegistry";
 import { useVfsStore } from "@/store/vfsStore";
+import { useAuthStore } from "@/store/authStore";
+import { api } from "@/utils/api";
 import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
 
 type Line = { type: "in" | "out"; text: string };
@@ -48,7 +50,9 @@ export function TerminalApp({}: AppComponentProps) {
     setLines((l) => [...l, { type: "out", text }]);
   }
 
-  function run(cmdline: string) {
+  const currentUser = useAuthStore((s) => s.currentUser);
+
+  async function run(cmdline: string) {
     const trimmed = cmdline.trim();
     if (!trimmed) return;
 
@@ -57,102 +61,35 @@ export function TerminalApp({}: AppComponentProps) {
     const [cmd, ...rest] = trimmed.split(/\s+/);
     const arg = rest.join(" ");
 
+    // Keep some local commands for navigation
     try {
-      switch (cmd) {
-        case "help":
-          println(
-            [
-              "Commands:",
-              "  ls",
-              "  cd <path>",
-              "  mkdir <name>",
-              "  touch <name>",
-              "  rm <name>",
-              "  clear",
-              "  whoami",
-              "  date",
-              "  neofetch",
-            ].join("\n")
-          );
-          break;
-        case "clear":
-          setLines([]);
-          break;
-        case "whoami":
-          println("guest");
-          break;
-        case "date":
-          println(new Date().toString());
-          break;
-        case "neofetch":
-          println(
-            [
-              "      _      __      ____  ____",
-              " __  / | /| / /__  / __ \\/ __/",
-              "/ _ \/  |/ |/ / _ \/ /_/ / _/  ",
-              "\\___/_/|__/\__/\___/\____/_/    ",
-              "",
-              "Web OS Desktop (Next.js)",
-            ].join("\n")
-          );
-          break;
-        case "ls": {
-          const nodes = list(cwdId);
-          const names = nodes
-            .map((n) => (n.type === "folder" ? `${n.name}/` : n.name))
-            .join("  ");
-          println(names || "");
-          break;
-        }
-        case "cd": {
-          const nextPath = arg ? joinPath(getPath(cwdId), arg) : "/";
-          const node = resolve(nextPath);
-          if (!node) {
-            println(`cd: no such file or directory: ${arg}`);
-            break;
-          }
-          if (!isFolder(node)) {
-            println(`cd: not a directory: ${arg}`);
-            break;
-          }
-          setCwdId(node.id);
-          break;
-        }
-        case "mkdir": {
-          if (!arg) {
-            println("mkdir: missing name");
-            break;
-          }
-          mkdir(cwdId, arg);
-          break;
-        }
-        case "touch": {
-          if (!arg) {
-            println("touch: missing name");
-            break;
-          }
-          touch(cwdId, arg, "");
-          break;
-        }
-        case "rm": {
-          if (!arg) {
-            println("rm: missing name");
-            break;
-          }
-          const nodes = list(cwdId);
-          const match = nodes.find((n) => n.name === arg);
-          if (!match) {
-            println(`rm: no such file: ${arg}`);
-            break;
-          }
-          rm(match.id);
-          break;
-        }
-        default:
-          println(`command not found: ${cmd}`);
+      if (cmd === "clear") {
+        setLines([]);
+        return;
       }
-    } catch (e) {
-      println(`error: ${(e as Error).message}`);
+      if (cmd === "cd") {
+        const nextPath = arg ? joinPath(getPath(cwdId), arg) : "/";
+        const node = resolve(nextPath);
+        if (!node) {
+          println(`cd: no such file or directory: ${arg}`);
+          return;
+        }
+        if (!isFolder(node)) {
+          println(`cd: not a directory: ${arg}`);
+          return;
+        }
+        setCwdId(node.id);
+        return;
+      }
+      
+      // Execute remotely on backend
+      const res = await api.workspace.runTerminal(`cd ${getPath(cwdId)} && ${trimmed}`, currentUser?.role || 'guest');
+      if (res.stdout) println(res.stdout);
+      if (res.stderr) println(res.stderr);
+      if (res.error) println(`Error: ${res.error}`);
+      
+    } catch (e: any) {
+      println(e.message || "Execution failed");
     }
   }
 

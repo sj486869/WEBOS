@@ -10,7 +10,6 @@ export function WindowLayer({ animationsEnabled }: { animationsEnabled: boolean 
 
   const list = useMemo(() => {
     return Object.values(windows)
-      .filter((w) => !w.isMinimized)
       .sort((a, b) => a.zIndex - b.zIndex);
   }, [windows]);
 

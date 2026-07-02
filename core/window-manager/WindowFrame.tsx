@@ -32,6 +32,7 @@ function getAnimState(win: WindowState) {
   if (win.lifecycle === "restoring") return "restore";
   if (win.lifecycle === "maximizing") return "maximize";
   if (win.lifecycle === "unmaximizing") return "restore";
+  if (win.isMinimized) return "minimize";
   return "idle";
 }
 
@@ -86,12 +87,12 @@ export function WindowFrame({
 
   const variants = useMemo(
     () => ({
-      idle: { opacity: 1, scale: 1, y: 0 },
-      open: { opacity: [0, 1], scale: [0.96, 1], y: [8, 0] },
-      close: { opacity: 0, scale: 0.96, y: 6 },
-      minimize: { opacity: 0, scale: 0.9, y: 30 },
-      restore: { opacity: [0, 1], scale: [0.96, 1], y: [14, 0] },
-      maximize: { opacity: 1, scale: 1, y: 0 },
+      idle: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+      open: { opacity: [0, 1], scale: [0.95, 1], y: [15, 0], filter: ["blur(4px)", "blur(0px)"] },
+      close: { opacity: 0, scale: 0.95, y: 15, filter: "blur(4px)" },
+      minimize: { opacity: 0, scale: 0.85, y: 50, filter: "blur(4px)" },
+      restore: { opacity: [0, 1], scale: [0.85, 1], y: [50, 0], filter: ["blur(4px)", "blur(0px)"] },
+      maximize: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", borderRadius: 0 },
     }),
     []
   );
@@ -188,7 +189,7 @@ export function WindowFrame({
 
   return (
     <motion.div
-      className="pointer-events-auto absolute overflow-hidden rounded-[var(--os-radius)] border border-[color:var(--os-border)] bg-[color:var(--os-panel-solid)] shadow-2xl"
+      className={`absolute overflow-hidden rounded-[var(--os-radius)] border border-[color:var(--os-border)] bg-[color:var(--os-panel-solid)] shadow-2xl ${win.isMinimized ? "pointer-events-none" : "pointer-events-auto"}`}
       style={style}
       initial={false}
       animate={animate}
@@ -240,7 +241,7 @@ export function WindowFrame({
 
       {/* Content */}
       <div className="h-[calc(100%-2.5rem)] bg-[color:var(--os-panel-solid)]">
-        <App windowId={win.id} />
+        <App windowId={win.id} args={win.args} />
       </div>
 
       {/* Resize handles */}

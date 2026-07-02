@@ -1,34 +1,18 @@
 'use client';
 
 import {
-  FileText,
-  Folder,
-  FolderOpen,
-  Search,
-  GitBranch,
-  Bug,
-  Settings,
-  Maximize2,
-  ChevronRight,
-  X,
-  Save,
-  Code,
+  FileText, Folder, FolderOpen, Search, GitBranch, Bug, Settings,
+  Maximize2, ChevronRight, ChevronDown, X, Save, Code, Play, RefreshCw, 
+  Plus, FolderPlus, Trash, Wand2, Terminal, PanelBottom
 } from 'lucide-react';
-import { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import type { AppComponentProps } from '@/core/os/appRegistry';
-
-interface FileNode {
-  id: string;
-  name: string;
-  type: 'file' | 'folder';
-  children?: FileNode[];
-  content?: string;
-  language?: string;
-  isOpen?: boolean;
-}
+import Editor from '@monaco-editor/react';
+import { api } from '@/utils/api';
+import { useAuthStore } from "@/store/authStore";
 
 interface OpenTab {
-  id: string;
+  id: string; // path
   name: string;
   path: string;
   content: string;
@@ -36,101 +20,12 @@ interface OpenTab {
   saved: boolean;
 }
 
-const INITIAL_FILES: FileNode[] = [
-  {
-    id: '1',
-    name: 'src',
-    type: 'folder',
-    isOpen: true,
-    children: [
-      {
-        id: '1-1',
-        name: 'app.tsx',
-        type: 'file',
-        language: 'typescript',
-        content: `import React from 'react';
-
-export default function App() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
-      <div className="flex items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold text-white">Welcome to VS Code</h1>
-      </div>
-    </div>
-  );
-}`,
-      },
-      {
-        id: '1-2',
-        name: 'utils.ts',
-        type: 'file',
-        language: 'typescript',
-        content: `// Utility functions
-
-export function formatDate(date: Date): string {
-  return date.toLocaleDateString();
+interface TreeNode {
+  type: 'file' | 'folder';
+  name: string;
+  path: string;
+  children?: TreeNode[];
 }
-
-export function debounce<T extends (...args: any[]) => any>(
-  fn: T,
-  delay: number
-): (...args: Parameters<T>) => void {
-  let timeoutId: NodeJS.Timeout;
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn(...args), delay);
-  };
-}`,
-      },
-    ],
-  },
-  {
-    id: '2',
-    name: 'public',
-    type: 'folder',
-    children: [
-      {
-        id: '2-1',
-        name: 'index.html',
-        type: 'file',
-        language: 'html',
-        content: `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VS Code Editor</title>
-</head>
-<body>
-  <div id="root"></div>
-</body>
-</html>`,
-      },
-    ],
-  },
-  {
-    id: '3',
-    name: 'package.json',
-    type: 'file',
-    language: 'json',
-    content: `{
-  "name": "web-os-desktop",
-  "version": "1.0.0",
-  "description": "Full-featured web-based operating system",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint ."
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "next": "^14.0.0",
-    "zustand": "^4.4.0"
-  }
-}`,
-  },
-];
 
 const LANGUAGES: Record<string, string> = {
   typescript: 'text-blue-400',
@@ -139,97 +34,336 @@ const LANGUAGES: Record<string, string> = {
   html: 'text-orange-400',
   css: 'text-purple-400',
   json: 'text-pink-400',
+  text: 'text-gray-300'
+};
+
+function getLanguageFromExt(filename: string) {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  switch (ext) {
+    case 'ts': case 'tsx': return 'typescript';
+    case 'js': case 'jsx': return 'javascript';
+    case 'py': return 'python';
+    case 'html': case 'htm': return 'html';
+    case 'css': return 'css';
+    case 'json': return 'json';
+    default: return 'text';
+  }
+}
+
+// Minimal missing lucide icon for layout
+function Layout(props: any) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+      <line x1="9" x2="9" y1="3" y2="21" />
+    </svg>
+  );
+}
+
+const FileTreeItem = ({
+  node, onFileClick, onDelete, onContextMenu, onMove
+}: {
+  node: TreeNode,
+  onFileClick: (path: string, name: string) => void,
+  onDelete: (path: string) => void,
+  onContextMenu: (e: React.MouseEvent, node: TreeNode) => void,
+  onMove: (source: string, target: string) => void
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const handleDragStart = (e: React.DragEvent) => {
+    e.dataTransfer.setData('text/plain', node.path);
+    e.stopPropagation();
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onContextMenu(e, node);
+  };
+
+  if (node.type === 'folder') {
+    return (
+      <div className="text-xs text-[#cccccc]">
+        <div
+          draggable
+          onDragStart={handleDragStart}
+          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setIsDragOver(true); }}
+          onDragLeave={() => setIsDragOver(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDragOver(false);
+            const source = e.dataTransfer.getData('text/plain');
+            if (source && source !== node.path) {
+              onMove(source, node.path);
+            }
+          }}
+          onContextMenu={handleContextMenu}
+          className={`flex items-center justify-between px-2 py-1 cursor-pointer group ${isDragOver ? 'bg-[#2a2d2e] ring-1 ring-blue-500' : 'hover:bg-[#37373d]'}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <div className="flex items-center gap-1 overflow-hidden">
+            {isOpen ? <ChevronDown className="h-3 w-3 shrink-0" /> : <ChevronRight className="h-3 w-3 shrink-0" />}
+            <Folder className="h-4 w-4 text-blue-400 shrink-0" />
+            <span className="truncate">{node.name}</span>
+          </div>
+          <button onClick={(e) => { e.stopPropagation(); onDelete(node.path); }} className="opacity-0 group-hover:opacity-100 hover:text-red-400 shrink-0" title="Delete folder">
+            <Trash className="h-3 w-3" />
+          </button>
+        </div>
+        {isOpen && node.children && (
+          <div className="pl-3 border-l border-[#333] ml-2">
+            {node.children.map(child => <FileTreeItem key={child.path} node={child} onFileClick={onFileClick} onDelete={onDelete} onContextMenu={onContextMenu} onMove={onMove} />)}
+          </div>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div
+        draggable
+        onDragStart={handleDragStart}
+        onContextMenu={handleContextMenu}
+        className="flex items-center justify-between px-2 py-1 hover:bg-[#37373d] cursor-pointer group text-xs text-[#cccccc]"
+        onClick={() => onFileClick(node.path, node.name)}
+      >
+        <div className="flex items-center gap-2 pl-4 overflow-hidden">
+          <FileText className={`h-4 w-4 shrink-0 ${LANGUAGES[getLanguageFromExt(node.name)] || 'text-gray-400'}`} />
+          <span className="truncate">{node.name}</span>
+        </div>
+        <button onClick={(e) => { e.stopPropagation(); onDelete(node.path); }} className="opacity-0 group-hover:opacity-100 hover:text-red-400 shrink-0" title="Delete file">
+          <Trash className="h-3 w-3" />
+        </button>
+      </div>
+    );
+  }
 };
 
 export function VSCodeEditorApp({}: AppComponentProps) {
-  const [files] = useState<FileNode[]>(INITIAL_FILES);
-  const [openTabs, setOpenTabs] = useState<OpenTab[]>([
-    {
-      id: '1-1',
-      name: 'app.tsx',
-      path: 'src/app.tsx',
-      content: INITIAL_FILES[0].children?.[0].content || '',
-      language: 'typescript',
-      saved: true,
-    },
-  ]);
-  const [activeTab, setActiveTab] = useState('1-1');
+  const currentUser = useAuthStore((s) => s.currentUser);
+  const [fileTree, setFileTree] = useState<TreeNode[]>([]);
+  const [openTabs, setOpenTabs] = useState<OpenTab[]>([]);
+  const [activeTab, setActiveTab] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
   const [showTerminal, setShowTerminal] = useState(false);
+  const [previewContent, setPreviewContent] = useState('');
+  const [terminalOutput, setTerminalOutput] = useState<{stdout: string, stderr: string, error: string} | null>(null);
   const [selectedPanel, setSelectedPanel] = useState('explorer');
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['1', '2']));
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; node: TreeNode } | null>(null);
+  
+  const [terminals, setTerminals] = useState<{id: string, name: string, history: {type: 'cmd'|'out'|'err', text: string}[], input: string}[]>([
+    { id: 'term-1', name: 'bash', history: [], input: '' }
+  ]);
+  const [activeTerminalId, setActiveTerminalId] = useState('term-1');
+  const [terminalHeight, setTerminalHeight] = useState(192); // 48 tailwind units = 192px
+  const [isDraggingTerminal, setIsDraggingTerminal] = useState(false);
+
+  const handleGlobalClick = () => setContextMenu(null);
+
+  const editorRef = useRef<any>(null);
+
+  const loadTree = async () => {
+    try {
+      const res = await api.workspace.getTree();
+      setFileTree(res.tree || []);
+    } catch(e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    loadTree();
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingTerminal) return;
+      // Calculate height from bottom
+      const newHeight = window.innerHeight - e.clientY - 30; // 30 is roughly the height of the bottom bar
+      setTerminalHeight(Math.max(100, Math.min(newHeight, window.innerHeight - 200)));
+    };
+    const handleMouseUp = () => setIsDraggingTerminal(false);
+    
+    if (isDraggingTerminal) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDraggingTerminal]);
+
+  const handleEditorDidMount = (editor: any, monaco: any) => {
+    editorRef.current = editor;
+    
+    // Add format on save command (Ctrl+S)
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+      saveTab(activeFile?.id || '');
+    });
+
+    // Register basic Python autocomplete snippets
+    if (!monaco.languages.getLanguages().some((l: any) => l.id === 'python_snippets_added')) {
+      monaco.languages.registerCompletionItemProvider('python', {
+        provideCompletionItems: (model: any, position: any) => {
+          const suggestions = [
+            {
+              label: 'print',
+              kind: monaco.languages.CompletionItemKind.Function,
+              insertText: 'print(${1:text})',
+              insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+              documentation: 'Print to console',
+            },
+            {
+              label: 'def',
+              kind: monaco.languages.CompletionItemKind.Keyword,
+              insertText: 'def ${1:name}(${2:args}):\n\t${3:pass}',
+              insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+              documentation: 'Define a function',
+            },
+            {
+              label: 'class',
+              kind: monaco.languages.CompletionItemKind.Class,
+              insertText: 'class ${1:ClassName}:\n\tdef __init__(self):\n\t\t${2:pass}',
+              insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+              documentation: 'Define a class',
+            },
+            {
+              label: 'ifmain',
+              kind: monaco.languages.CompletionItemKind.Snippet,
+              insertText: 'if __name__ == "__main__":\n\t${1:main()}',
+              insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+              documentation: 'Main block',
+            },
+            {
+              label: 'import os',
+              kind: monaco.languages.CompletionItemKind.Module,
+              insertText: 'import os',
+              documentation: 'Import the os module',
+            },
+            {
+              label: 'import sys',
+              kind: monaco.languages.CompletionItemKind.Module,
+              insertText: 'import sys',
+              documentation: 'Import the sys module',
+            },
+            {
+              label: 'import',
+              kind: monaco.languages.CompletionItemKind.Keyword,
+              insertText: 'import ${1:module}',
+              insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+            }
+          ];
+          return { suggestions };
+        }
+      });
+      monaco.languages.register({ id: 'python_snippets_added' });
+    }
+  };
+
+  const formatCode = async () => {
+    if (editorRef.current) {
+      await editorRef.current.getAction('editor.action.formatDocument')?.run();
+    }
+  };
 
   const activeFile = openTabs.find((t) => t.id === activeTab);
 
-  const toggleFolder = (id: string) => {
-    const newExpanded = new Set(expandedFolders);
-    if (newExpanded.has(id)) {
-      newExpanded.delete(id);
-    } else {
-      newExpanded.add(id);
+  const handleOpenFile = async (path: string, name: string) => {
+    const existing = openTabs.find((t) => t.id === path);
+    if (existing) {
+      setActiveTab(path);
+      return;
     }
-    setExpandedFolders(newExpanded);
-  };
 
-  const openFile = (node: FileNode, path: string = '') => {
-    if (node.type === 'file') {
-      const fullPath = path ? `${path}/${node.name}` : node.name;
-      const existing = openTabs.find((t) => t.id === node.id);
-
-      if (existing) {
-        setActiveTab(node.id);
-      } else {
-        const newTab: OpenTab = {
-          id: node.id,
-          name: node.name,
-          path: fullPath,
-          content: node.content || '',
-          language: node.language || 'typescript',
-          saved: true,
-        };
-        setOpenTabs([...openTabs, newTab]);
-        setActiveTab(node.id);
-      }
+    try {
+      const text = await api.workspace.readFile(path);
+      const newTab: OpenTab = {
+        id: path,
+        name,
+        path,
+        content: text,
+        language: getLanguageFromExt(name),
+        saved: true,
+      };
+      setOpenTabs([...openTabs, newTab]);
+      setActiveTab(path);
+    } catch (e: any) {
+      console.error("Failed to load file content", e);
+      alert("Failed to load file content");
     }
   };
 
-  const renderFileTree = (nodes: FileNode[], parentPath: string = '') => {
-    return nodes.map((node) => {
-      const isExpanded = expandedFolders.has(node.id);
-      const fullPath = parentPath ? `${parentPath}/${node.name}` : node.name;
+  const createNewFile = async () => {
+    const path = prompt("Enter full path for new file (e.g. src/app.js):");
+    if (!path) return;
+    try {
+      await api.workspace.writeFile(path, "");
+      await loadTree();
+      handleOpenFile(path, path.split('/').pop() || path);
+    } catch (e: any) {
+      alert("Failed to create file: " + e.message);
+    }
+  };
 
-      return (
-        <div key={node.id}>
-          <div
-            className="flex items-center gap-1 px-2 py-1 hover:bg-gray-700/50 cursor-pointer group text-sm"
-            onClick={() => {
-              if (node.type === 'folder') toggleFolder(node.id);
-              else openFile(node, parentPath);
-            }}
-          >
-            {node.type === 'folder' ? (
-              <>
-                <ChevronRight
-                  className={`h-4 w-4 transition ${isExpanded ? 'rotate-90' : ''}`}
-                />
-                <FolderOpen className="h-4 w-4 text-yellow-500" />
-              </>
-            ) : (
-              <>
-                <div className="w-4" />
-                <FileText className={`h-4 w-4 ${LANGUAGES[node.language || 'typescript'] || 'text-gray-400'}`} />
-              </>
-            )}
-            <span className="flex-1">{node.name}</span>
-          </div>
+  const createNewFolder = async () => {
+    const path = prompt("Enter full path for new folder (e.g. src/components):");
+    if (!path) return;
+    try {
+      await api.workspace.createFolder(path);
+      await loadTree();
+    } catch (e: any) {
+      alert("Failed to create folder: " + e.message);
+    }
+  };
 
-          {node.type === 'folder' && isExpanded && node.children && (
-            <div className="ml-2">{renderFileTree(node.children, fullPath)}</div>
-          )}
-        </div>
-      );
-    });
+  const deletePath = async (path: string) => {
+    if (!confirm(`Are you sure you want to delete ${path}?`)) return;
+    try {
+      await api.workspace.deletePath(path);
+      closeTab(path);
+      await loadTree();
+    } catch (e: any) {
+      alert("Failed to delete: " + e.message);
+    }
+  };
+
+  const handleMove = async (source: string, targetFolder: string) => {
+    const filename = source.split('/').pop();
+    const newPath = targetFolder + '/' + filename;
+    try {
+      await api.workspace.renamePath(source, newPath);
+      await loadTree();
+    } catch (e: any) {
+      alert("Failed to move: " + e.message);
+    }
+  };
+
+  const renamePath = async (oldPath: string) => {
+    const newPath = prompt("Enter new path:", oldPath);
+    if (!newPath || newPath === oldPath) return;
+    try {
+      await api.workspace.renamePath(oldPath, newPath);
+      await loadTree();
+      // If it was open, close it since the path changed (or we could update the tab)
+      closeTab(oldPath);
+    } catch (e: any) {
+      alert("Failed to rename: " + e.message);
+    }
   };
 
   const closeTab = (id: string) => {
@@ -237,10 +371,14 @@ export function VSCodeEditorApp({}: AppComponentProps) {
     setOpenTabs(newTabs);
     if (activeTab === id && newTabs.length > 0) {
       setActiveTab(newTabs[0].id);
+    } else if (newTabs.length === 0) {
+      setActiveTab('');
+      setShowPreview(false);
     }
   };
 
-  const updateTab = (id: string, content: string) => {
+  const updateTab = (id: string, content: string | undefined) => {
+    if (content === undefined) return;
     setOpenTabs(
       openTabs.map((t) =>
         t.id === id ? { ...t, content, saved: false } : t
@@ -248,52 +386,128 @@ export function VSCodeEditorApp({}: AppComponentProps) {
     );
   };
 
-  const saveTab = (id: string) => {
-    setOpenTabs(
-      openTabs.map((t) =>
-        t.id === id ? { ...t, saved: true } : t
-      )
-    );
+  const saveTab = async (id: string) => {
+    const tab = openTabs.find(t => t.id === id);
+    if (!tab) return;
+
+    try {
+      let finalContent = tab.content;
+      if (activeTab === id && editorRef.current) {
+        // Auto format before save
+        await editorRef.current.getAction('editor.action.formatDocument')?.run();
+        finalContent = editorRef.current.getValue();
+        updateTab(id, finalContent);
+      }
+
+      await api.workspace.writeFile(tab.path, finalContent);
+      
+      setOpenTabs(openTabs.map(t => t.id === id ? { ...t, content: finalContent, saved: true } : t));
+    } catch (e: any) {
+      console.error("Save failed", e);
+      alert("Save failed: " + (e.message || e.toString()));
+    }
+  };
+
+  const runCode = async () => {
+    if (!activeFile) return;
+    
+    if (activeFile.language === 'html') {
+      setPreviewContent(activeFile.content);
+      setShowPreview(true);
+      setShowTerminal(false);
+    } else {
+      try {
+        setShowTerminal(true);
+        setShowPreview(false);
+        if (!activeFile.saved) {
+          await saveTab(activeFile.id);
+        }
+        const result = await api.workspace.runCode(activeFile.path, currentUser?.role || 'guest');
+        
+        setTerminals(prev => prev.map(t => t.id === activeTerminalId ? {
+          ...t,
+          history: [
+            ...t.history,
+            { type: 'cmd' as const, text: `> run ${activeFile.path}` },
+            ...(result.stdout ? [{ type: 'out' as const, text: result.stdout }] : []),
+            ...(result.stderr ? [{ type: 'err' as const, text: result.stderr }] : []),
+            ...(result.error ? [{ type: 'err' as const, text: result.error }] : [])
+          ]
+        } : t));
+      } catch (e: any) {
+        setTerminals(prev => prev.map(t => t.id === activeTerminalId ? {
+          ...t,
+          history: [...t.history, { type: 'err', text: e.message }]
+        } : t));
+      }
+    }
+  };
+
+  const handleTerminalSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const activeTerm = terminals.find(t => t.id === activeTerminalId);
+    if (!activeTerm) return;
+
+    if (e.key === 'Enter' && activeTerm.input.trim()) {
+      const cmd = activeTerm.input.trim();
+      
+      setTerminals(prev => prev.map(t => t.id === activeTerminalId ? {
+        ...t,
+        input: '',
+        history: [...t.history, { type: 'cmd', text: `C:\\workspace> ${cmd}` }]
+      } : t));
+
+      try {
+        const res = await api.workspace.runTerminal(cmd, currentUser?.role || 'guest');
+        setTerminals(prev => prev.map(t => t.id === activeTerminalId ? {
+          ...t,
+          history: [
+            ...t.history,
+            { type: 'cmd' as const, text: `> ${cmd}` },
+            ...(res.stdout ? [{ type: 'out' as const, text: res.stdout }] : []),
+            ...(res.stderr ? [{ type: 'err' as const, text: res.stderr }] : []),
+            ...(res.error ? [{ type: 'err' as const, text: res.error }] : [])
+          ],
+        } : t));
+      } catch (err: any) {
+        setTerminals(prev => prev.map(t => t.id === activeTerminalId ? {
+          ...t,
+          history: [...t.history, { type: 'err' as const, text: err.message }]
+        } : t));
+      }
+    }
   };
 
   return (
-    <div className="flex h-full bg-gray-950 text-gray-200">
+    <div className="flex h-full bg-[#1e1e1e] text-[#cccccc] font-sans relative" onClick={handleGlobalClick}>
       {/* Sidebar */}
       {sidebarOpen && (
-        <div className="w-64 border-r border-gray-700 bg-gray-900 flex flex-col">
+        <div className="w-64 border-r border-[#333333] bg-[#252526] flex flex-col shrink-0">
           {/* Activity Bar */}
-          <div className="flex gap-1 p-2 border-b border-gray-700">
+          <div className="flex gap-1 p-2 border-b border-[#333333]">
             <button
               onClick={() => setSelectedPanel('explorer')}
-              className={`p-2 rounded ${selectedPanel === 'explorer' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
+              className={`p-2 rounded ${selectedPanel === 'explorer' ? 'bg-[#37373d]' : 'hover:bg-[#2a2d2e]'}`}
               title="Explorer"
             >
               <Folder className="h-5 w-5" />
             </button>
             <button
               onClick={() => setSelectedPanel('search')}
-              className={`p-2 rounded ${selectedPanel === 'search' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
+              className={`p-2 rounded ${selectedPanel === 'search' ? 'bg-[#37373d]' : 'hover:bg-[#2a2d2e]'}`}
               title="Search"
             >
               <Search className="h-5 w-5" />
             </button>
             <button
               onClick={() => setSelectedPanel('git')}
-              className={`p-2 rounded ${selectedPanel === 'git' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
+              className={`p-2 rounded ${selectedPanel === 'git' ? 'bg-[#37373d]' : 'hover:bg-[#2a2d2e]'}`}
               title="Source Control"
             >
               <GitBranch className="h-5 w-5" />
             </button>
             <button
-              onClick={() => setSelectedPanel('debug')}
-              className={`p-2 rounded ${selectedPanel === 'debug' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
-              title="Debug"
-            >
-              <Bug className="h-5 w-5" />
-            </button>
-            <button
               onClick={() => setSelectedPanel('settings')}
-              className={`p-2 rounded ${selectedPanel === 'settings' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
+              className={`p-2 rounded ${selectedPanel === 'settings' ? 'bg-[#37373d]' : 'hover:bg-[#2a2d2e]'}`}
               title="Settings"
             >
               <Settings className="h-5 w-5" />
@@ -304,32 +518,43 @@ export function VSCodeEditorApp({}: AppComponentProps) {
           <div className="flex-1 overflow-auto">
             {selectedPanel === 'explorer' && (
               <div className="p-2">
-                <h3 className="text-xs font-semibold text-gray-400 mb-2 px-2">EXPLORER</h3>
-                <div className="text-xs text-gray-300">{renderFileTree(files)}</div>
+                <div className="flex items-center justify-between px-2 mb-2">
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase">Explorer</h3>
+                  <div className="flex gap-1">
+                    <button onClick={createNewFile} className="hover:text-white" title="New File">
+                      <Plus className="h-4 w-4" />
+                    </button>
+                    <button onClick={createNewFolder} className="hover:text-white" title="New Folder">
+                      <FolderPlus className="h-4 w-4" />
+                    </button>
+                    <button onClick={() => loadTree()} className="hover:text-white" title="Refresh">
+                      <RefreshCw className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="flex-1 overflow-auto py-2">
+                  {fileTree.map((node) => (
+                    <FileTreeItem 
+                      key={node.path} 
+                      node={node} 
+                      onFileClick={handleOpenFile} 
+                      onDelete={deletePath} 
+                      onContextMenu={(e, n) => setContextMenu({ x: e.clientX, y: e.clientY, node: n })}
+                      onMove={handleMove}
+                    />
+                  ))}
+                  {fileTree.length === 0 && (
+                    <div className="px-2 py-4 text-gray-500 text-center opacity-70">
+                      Workspace is empty.
+                    </div>
+                  )}
+                </div>
               </div>
             )}
-            {selectedPanel === 'search' && (
+            {selectedPanel !== 'explorer' && (
               <div className="p-4 text-center text-gray-500">
-                <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p className="text-xs">Search functionality</p>
-              </div>
-            )}
-            {selectedPanel === 'git' && (
-              <div className="p-4 text-center text-gray-500">
-                <GitBranch className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p className="text-xs">Git integration</p>
-              </div>
-            )}
-            {selectedPanel === 'debug' && (
-              <div className="p-4 text-center text-gray-500">
-                <Bug className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p className="text-xs">Debugger</p>
-              </div>
-            )}
-            {selectedPanel === 'settings' && (
-              <div className="p-4 text-center text-gray-500">
-                <Settings className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                <p className="text-xs">Settings</p>
+                <p className="text-xs">Feature not implemented</p>
               </div>
             )}
           </div>
@@ -337,143 +562,265 @@ export function VSCodeEditorApp({}: AppComponentProps) {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Title Bar */}
-        <div className="border-b border-gray-700 bg-gray-900 px-4 py-2 flex items-center justify-between">
+        <div className="bg-[#333333] px-4 py-2 flex items-center justify-between select-none border-b border-[#2d2d2d] shrink-0">
           <div className="flex items-center gap-2">
             <Code className="h-5 w-5 text-blue-400" />
-            <span className="font-semibold">VS Code</span>
-            {activeFile && <span className="text-gray-500">• {activeFile.path}</span>}
+            <span className="font-semibold text-sm">VS Code Editor</span>
           </div>
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-1 hover:bg-gray-800 rounded"
-          >
-            <Maximize2 className="h-4 w-4" />
-          </button>
+          <div className="flex items-center gap-2">
+             <button
+              onClick={runCode}
+              disabled={!activeFile}
+              className="flex items-center gap-1 px-3 py-1 bg-[#04395e] hover:bg-[#064e82] disabled:opacity-30 rounded text-xs font-medium transition"
+            >
+              <Play className="h-3 w-3 text-green-400" />
+              Run
+            </button>
+            <button
+              onClick={() => { setShowTerminal(!showTerminal); setShowPreview(false); }}
+              className="p-1 hover:bg-[#444] rounded transition"
+              title="Toggle Terminal"
+            >
+              <Terminal className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => { setShowPreview(!showPreview); setShowTerminal(false); }}
+              className="p-1 hover:bg-[#444] rounded transition"
+              title="Toggle Preview Pane"
+            >
+              <Layout className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-1 hover:bg-[#444] rounded transition"
+            >
+              <Maximize2 className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-700 bg-gray-900 flex overflow-x-auto">
-          {openTabs.map((tab) => (
-            <div
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 border-r border-gray-700 cursor-pointer group transition ${
-                activeTab === tab.id
-                  ? 'bg-gray-800 border-b-2 border-blue-500'
-                  : 'hover:bg-gray-800/50'
-              }`}
-            >
-              <FileText className={`h-4 w-4 ${LANGUAGES[tab.language] || 'text-gray-400'}`} />
-              <span className="text-sm">{tab.name}</span>
-              {!tab.saved && <span className="text-white text-xs">●</span>}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  closeTab(tab.id);
-                }}
-                className="opacity-0 group-hover:opacity-100 hover:text-red-500"
+        {openTabs.length > 0 && (
+          <div className="bg-[#2d2d2d] flex overflow-x-auto select-none shrink-0">
+            {openTabs.map((tab) => (
+              <div
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-3 py-2 cursor-pointer group border-r border-[#1e1e1e] ${
+                  activeTab === tab.id
+                    ? 'bg-[#1e1e1e] text-white border-t border-t-blue-500'
+                    : 'bg-[#2d2d2d] hover:bg-[#2d2d2d]/80 text-gray-400'
+                }`}
+                style={{ minWidth: 120, borderTopWidth: activeTab === tab.id ? 2 : 0 }}
               >
-                <X className="h-3 w-3" />
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {/* Editor Area */}
-        <div className={`flex-1 flex flex-col overflow-hidden ${showTerminal ? 'flex-1' : ''}`}>
-          {activeFile ? (
-            <>
-              {/* Editor Toolbar */}
-              <div className="border-b border-gray-700 bg-gray-900 px-4 py-2 flex items-center justify-between text-sm">
-                <div className="text-xs text-gray-500">
-                  Ln {activeFile.content.split('\n').length} • Col{' '}
-                  {activeFile.content.split('\n').pop()?.length || 0}
-                </div>
-                <div className="flex gap-2">
-                  <select className="bg-gray-800 text-xs p-1 rounded border border-gray-700">
-                    <option>{activeFile.language.toUpperCase()}</option>
-                  </select>
+                <FileText className={`h-4 w-4 shrink-0 ${LANGUAGES[tab.language] || 'text-gray-400'}`} />
+                <span className="text-sm truncate flex-1">{tab.name}</span>
+                <div className="flex items-center justify-center w-5 h-5 shrink-0">
+                  {!tab.saved ? (
+                    <span className="text-white text-[10px] group-hover:hidden">●</span>
+                  ) : null}
                   <button
-                    onClick={() => saveTab(activeFile.id)}
-                    disabled={activeFile.saved}
-                    className="flex items-center gap-1 px-2 py-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded text-xs"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      closeTab(tab.id);
+                    }}
+                    className={`p-1 rounded hover:bg-[#444] ${!tab.saved ? 'hidden group-hover:block' : 'opacity-0 group-hover:opacity-100'}`}
                   >
-                    <Save className="h-3 w-3" />
-                    Save
+                    <X className="h-3 w-3" />
                   </button>
                 </div>
               </div>
+            ))}
+          </div>
+        )}
 
-              {/* Code Editor */}
-              <div className="flex-1 overflow-hidden flex">
-                <textarea
-                  value={activeFile.content}
-                  onChange={(e) => updateTab(activeFile.id, e.target.value)}
-                  className="flex-1 bg-gray-950 text-gray-100 font-mono text-sm p-4 resize-none focus:outline-none"
-                  spellCheck="false"
-                />
+        {/* Editor & Preview Area */}
+        <div className="flex-1 flex flex-col overflow-hidden relative">
+          <div className="flex-1 flex overflow-hidden">
+            {activeFile ? (
+              <>
+                {/* Monaco Editor */}
+                <div className="flex-1 flex flex-col relative h-full w-full">
+                  {/* Editor Toolbar */}
+                  <div className="absolute top-2 right-4 z-10 flex gap-2">
+                    <button
+                      onClick={formatCode}
+                      className="flex items-center gap-1 px-2 py-1 bg-[#2d2d2d] hover:bg-[#3d3d3d] rounded text-xs shadow-md transition-opacity duration-200 border border-[#333]"
+                    >
+                      <Wand2 className="h-3 w-3" />
+                      Format
+                    </button>
+                    <button
+                      onClick={() => saveTab(activeFile.id)}
+                      disabled={activeFile.saved}
+                      className="flex items-center gap-1 px-2 py-1 bg-[#0e639c] hover:bg-[#1177bb] disabled:opacity-50 disabled:pointer-events-none rounded text-xs shadow-md transition-opacity duration-200"
+                    >
+                      <Save className="h-3 w-3" />
+                      Save
+                    </button>
+                  </div>
 
-                {/* Mini Map */}
-                <div className="w-16 bg-gray-900 border-l border-gray-700 opacity-20">
-                  {/* Simplified minimap - just a visual placeholder */}
-                  <div className="h-full bg-gradient-to-b from-blue-900/20 to-green-900/20" />
+                  <Editor
+                    height="100%"
+                    theme="vs-dark"
+                    path={activeFile.path}
+                    defaultLanguage={activeFile.language}
+                    value={activeFile.content}
+                    onChange={(val) => updateTab(activeFile.id, val)}
+                    onMount={handleEditorDidMount}
+                    options={{
+                      minimap: { enabled: true },
+                      fontSize: 14,
+                      wordWrap: 'on',
+                      formatOnPaste: true,
+                      padding: { top: 16 },
+                      automaticLayout: true,
+                      suggestOnTriggerCharacters: true,
+                      quickSuggestions: true,
+                    }}
+                  />
+                </div>
+
+                {/* Live Preview Panel */}
+                {showPreview && (
+                  <div className="w-1/2 border-l border-[#333333] bg-white flex flex-col relative shrink-0">
+                    <div className="bg-[#2d2d2d] px-3 py-2 flex items-center justify-between text-xs text-gray-300">
+                      <span className="font-semibold flex items-center gap-2"><Play className="h-3 w-3"/> Live Preview</span>
+                      <button onClick={() => runCode()} className="hover:text-white"><RefreshCw className="h-3 w-3" /></button>
+                    </div>
+                    <iframe 
+                      title="preview"
+                      srcDoc={previewContent}
+                      className="flex-1 w-full bg-white border-none"
+                      sandbox="allow-scripts allow-same-origin"
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="flex items-center justify-center w-full h-full text-center">
+                <div>
+                  <Code className="h-16 w-16 mx-auto mb-4 opacity-10 text-gray-500" />
+                  <p className="text-gray-500 text-lg mb-2 font-light">No file selected</p>
+                  <p className="text-gray-600 text-sm">Create a new file or select one from Explorer</p>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="flex items-center justify-center h-full text-center">
-              <div>
-                <Code className="h-12 w-12 mx-auto mb-3 opacity-30" />
-                <p className="text-gray-500 text-sm mb-2">No file selected</p>
-                <p className="text-gray-600 text-xs">Select a file from the explorer to start editing</p>
+            )}
+          </div>
+
+          {/* Terminal Panel */}
+          {showTerminal && (
+            <div style={{ height: terminalHeight }} className="border-t border-[#333] bg-[#1e1e1e] flex flex-col relative shrink-0">
+              {/* Drag Handle */}
+              <div 
+                className="absolute top-0 left-0 right-0 h-1 cursor-row-resize z-10 hover:bg-[#007acc] transition-colors"
+                onMouseDown={() => setIsDraggingTerminal(true)}
+              />
+              <div className="bg-[#2d2d2d] px-3 py-1 flex items-center justify-between text-xs text-gray-300 select-none">
+                <div className="flex items-center gap-1 overflow-x-auto">
+                  {terminals.map(term => (
+                    <div 
+                      key={term.id}
+                      onClick={() => setActiveTerminalId(term.id)}
+                      className={`px-3 py-1 cursor-pointer border-t-2 ${activeTerminalId === term.id ? 'border-[#007acc] bg-[#1e1e1e] text-white' : 'border-transparent text-gray-400 hover:bg-[#333]'}`}
+                    >
+                      {term.name}
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => {
+                      const id = `term-${Date.now()}`;
+                      setTerminals(prev => [...prev, { id, name: `bash`, history: [], input: '' }]);
+                      setActiveTerminalId(id);
+                    }}
+                    className="hover:text-white p-1 ml-1"
+                    title="New Terminal"
+                  >
+                    <Plus className="h-3 w-3" />
+                  </button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setTerminals(prev => prev.map(t => t.id === activeTerminalId ? { ...t, history: [] } : t))} className="hover:text-white p-1" title="Clear Terminal">
+                    <Trash className="h-3 w-3" />
+                  </button>
+                  <button onClick={() => {
+                    if (terminals.length > 1) {
+                      const filtered = terminals.filter(t => t.id !== activeTerminalId);
+                      setTerminals(filtered);
+                      setActiveTerminalId(filtered[0].id);
+                    } else {
+                      setShowTerminal(false);
+                    }
+                  }} className="hover:text-white p-1" title="Close Terminal">
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 overflow-auto p-3 font-mono text-[12px] whitespace-pre-wrap flex flex-col">
+                {terminals.find(t => t.id === activeTerminalId)?.history.map((item, i) => (
+                  <div key={i} className={`mb-1 ${item.type === 'cmd' ? 'text-blue-300' : item.type === 'err' ? 'text-red-400' : 'text-gray-300'}`}>
+                    {item.text}
+                  </div>
+                ))}
+                <div className="flex items-center mt-2 text-gray-300">
+                  <span className="text-green-400 mr-2">C:\workspace&gt;</span>
+                  <input
+                    type="text"
+                    value={terminals.find(t => t.id === activeTerminalId)?.input || ''}
+                    onChange={(e) => setTerminals(prev => prev.map(t => t.id === activeTerminalId ? { ...t, input: e.target.value } : t))}
+                    onKeyDown={handleTerminalSubmit}
+                    className="flex-1 bg-transparent outline-none border-none text-gray-300"
+                    autoFocus
+                    spellCheck={false}
+                  />
+                </div>
               </div>
             </div>
           )}
         </div>
-
-        {/* Terminal */}
-        {showTerminal && (
-          <div className="border-t border-gray-700 bg-black flex flex-col h-40">
-            <div className="border-b border-gray-700 px-4 py-2 flex items-center justify-between bg-gray-900">
-              <span className="text-xs font-semibold">Terminal</span>
-              <button
-                onClick={() => setShowTerminal(false)}
-                className="p-1 hover:bg-gray-800 rounded"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="flex-1 overflow-auto p-3 font-mono text-sm text-green-400">
-              <div>$ npm run dev</div>
-              <div className="opacity-70">web-os-desktop@1.0.0 dev</div>
-              <div className="opacity-70">next dev</div>
-              <div className="text-blue-400 mt-2">✓ Ready in 2.3s</div>
-              <div className="opacity-60">  ▲ Next.js 16.1.3 (Turbopack)</div>
-              <div className="opacity-60">  - Local: http://localhost:3001</div>
-              <div ref={terminalEndRef} />
-            </div>
-          </div>
-        )}
-
+        
         {/* Bottom Bar */}
-        <div className="border-t border-gray-700 bg-gray-900 px-4 py-2 flex items-center justify-between text-xs text-gray-500">
-          <div className="flex gap-4">
-            <button
-              onClick={() => setShowTerminal(!showTerminal)}
-              className="hover:text-white transition"
-            >
-              ⌘ Terminal {showTerminal ? '◄' : '►'}
-            </button>
-            <button className="hover:text-white transition">Problems</button>
-            <button className="hover:text-white transition">Output</button>
+        <div className="bg-[#007acc] px-3 py-1 flex items-center justify-between text-xs text-white select-none shrink-0">
+          <div className="flex items-center gap-3">
+            <span className="hover:bg-white/20 px-2 py-0.5 rounded cursor-pointer transition">
+              <GitBranch className="h-3 w-3 inline mr-1" /> main*
+            </span>
+            <span className="hover:bg-white/20 px-2 py-0.5 rounded cursor-pointer transition">
+              <X className="h-3 w-3 inline mr-1" /> 0 
+            </span>
           </div>
-          <div className="text-xs">
-            ✓ ES256 • UTF-8 • CRLF {activeFile ? `• ${activeFile.language.toUpperCase()}` : ''}
+          <div className="flex items-center gap-3">
+            <span className="hover:bg-white/20 px-2 py-0.5 rounded cursor-pointer transition">UTF-8</span>
+            <span className="hover:bg-white/20 px-2 py-0.5 rounded cursor-pointer transition">
+               {activeFile ? activeFile.language.toUpperCase() : 'Plain Text'}
+            </span>
+            <span className="hover:bg-white/20 px-2 py-0.5 rounded cursor-pointer transition">WebOS Desktop</span>
           </div>
         </div>
       </div>
+      {/* Context Menu Overlay */}
+      {contextMenu && (
+        <div 
+          className="fixed bg-[#252526] border border-[#454545] shadow-lg rounded py-1 z-50 text-[#cccccc] text-sm"
+          style={{ top: contextMenu.y, left: contextMenu.x, minWidth: 160 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div 
+            className="px-4 py-1.5 hover:bg-[#094771] hover:text-white cursor-pointer"
+            onClick={() => { renamePath(contextMenu.node.path); setContextMenu(null); }}
+          >
+            Rename
+          </div>
+          <div 
+            className="px-4 py-1.5 hover:bg-[#094771] hover:text-white cursor-pointer text-red-400"
+            onClick={() => { deletePath(contextMenu.node.path); setContextMenu(null); }}
+          >
+            Delete
+          </div>
+        </div>
+      )}
     </div>
   );
 }

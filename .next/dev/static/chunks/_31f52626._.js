@@ -75,27 +75,26 @@ function InternetBrowserApp({}) {
     };
     const handleNavigate = (url)=>{
         setIsLoading(true);
-        // Simulate loading
-        setTimeout(()=>{
-            let finalUrl = url;
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                finalUrl = 'https://' + url;
-            }
-            const title = new URL(finalUrl).hostname;
-            const page = {
-                url: finalUrl,
-                title: title || 'Web Page'
-            };
-            const newHistory = [
-                ...history.slice(0, historyIndex + 1),
-                page
-            ];
-            saveHistory(newHistory);
-            setHistoryIndex(newHistory.length - 1);
-            setCurrentUrl(finalUrl);
-            setUrlInput(finalUrl);
-            setIsLoading(false);
-        }, 1000);
+        let finalUrl = url;
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            finalUrl = 'https://' + url;
+        }
+        let title = 'Web Page';
+        try {
+            title = new URL(finalUrl).hostname;
+        } catch (e) {}
+        const page = {
+            url: finalUrl,
+            title: title
+        };
+        const newHistory = [
+            ...history.slice(0, historyIndex + 1),
+            page
+        ];
+        saveHistory(newHistory);
+        setHistoryIndex(newHistory.length - 1);
+        setCurrentUrl(finalUrl);
+        setUrlInput(finalUrl);
     };
     const handleBack = ()=>{
         if (historyIndex > 0) {
@@ -162,12 +161,12 @@ function InternetBrowserApp({}) {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 165,
+                                    lineNumber: 163,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 159,
+                                lineNumber: 157,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -179,12 +178,12 @@ function InternetBrowserApp({}) {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 171,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 167,
+                                lineNumber: 165,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -195,12 +194,12 @@ function InternetBrowserApp({}) {
                                     className: `h-4 w-4 ${isLoading ? 'animate-spin' : ''}`
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 180,
+                                    lineNumber: 178,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 175,
+                                lineNumber: 173,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -219,7 +218,7 @@ function InternetBrowserApp({}) {
                                         placeholder: "Enter URL..."
                                     }, void 0, false, {
                                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 183,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -228,13 +227,13 @@ function InternetBrowserApp({}) {
                                         children: "Go"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                        lineNumber: 197,
+                                        lineNumber: 195,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 183,
+                                lineNumber: 181,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -246,12 +245,12 @@ function InternetBrowserApp({}) {
                                     fill: isBookmarked ? 'currentColor' : 'none'
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 215,
+                                    lineNumber: 213,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 206,
+                                lineNumber: 204,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -262,12 +261,12 @@ function InternetBrowserApp({}) {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 224,
+                                    lineNumber: 222,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 219,
+                                lineNumber: 217,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -278,18 +277,18 @@ function InternetBrowserApp({}) {
                                     className: "h-4 w-4"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 233,
+                                    lineNumber: 231,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 228,
+                                lineNumber: 226,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                        lineNumber: 158,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     showHistory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -303,7 +302,7 @@ function InternetBrowserApp({}) {
                                         children: "History"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                        lineNumber: 241,
+                                        lineNumber: 239,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -312,13 +311,13 @@ function InternetBrowserApp({}) {
                                         children: "Clear"
                                     }, void 0, false, {
                                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 240,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 240,
+                                lineNumber: 238,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -328,7 +327,7 @@ function InternetBrowserApp({}) {
                                     children: "No history"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 251,
+                                    lineNumber: 249,
                                     columnNumber: 17
                                 }, this) : history.map((page, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>{
@@ -341,18 +340,18 @@ function InternetBrowserApp({}) {
                                         children: page.title
                                     }, idx, false, {
                                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                        lineNumber: 254,
+                                        lineNumber: 252,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 249,
+                                lineNumber: 247,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                        lineNumber: 239,
+                        lineNumber: 237,
                         columnNumber: 11
                     }, this),
                     showBookmarks && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -367,7 +366,7 @@ function InternetBrowserApp({}) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 277,
+                                lineNumber: 275,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -377,7 +376,7 @@ function InternetBrowserApp({}) {
                                     children: "No bookmarks"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 280,
+                                    lineNumber: 278,
                                     columnNumber: 17
                                 }, this) : bookmarks.map((bookmark)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-2 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded group",
@@ -388,7 +387,7 @@ function InternetBrowserApp({}) {
                                                 children: bookmark.title
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                lineNumber: 287,
+                                                lineNumber: 285,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -398,274 +397,91 @@ function InternetBrowserApp({}) {
                                                     className: "h-3 w-3"
                                                 }, void 0, false, {
                                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                    lineNumber: 297,
+                                                    lineNumber: 295,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                lineNumber: 293,
+                                                lineNumber: 291,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, bookmark.id, true, {
                                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                        lineNumber: 283,
+                                        lineNumber: 281,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 278,
+                                lineNumber: 276,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                        lineNumber: 276,
+                        lineNumber: 274,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                lineNumber: 156,
+                lineNumber: 154,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex-1 overflow-auto bg-white dark:bg-black",
-                children: isLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center justify-center h-full",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "text-center",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-3 text-3xl animate-spin",
-                                children: "⌛"
-                            }, void 0, false, {
-                                fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 312,
-                                columnNumber: 15
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "opacity-60",
-                                children: "Loading page..."
-                            }, void 0, false, {
-                                fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                lineNumber: 313,
-                                columnNumber: 15
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                        lineNumber: 311,
-                        columnNumber: 13
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                    lineNumber: 310,
-                    columnNumber: 11
-                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-6 max-w-4xl mx-auto",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mb-4 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800",
+                className: "flex-1 overflow-hidden bg-white dark:bg-black relative",
+                children: [
+                    isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute inset-0 z-10 flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-sm",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-center",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-xs opacity-70 mb-2",
-                                    children: "Current Page:"
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mb-3 text-3xl animate-spin",
+                                    children: "⌛"
                                 }, void 0, false, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 319,
+                                    lineNumber: 310,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "font-mono text-sm break-all",
-                                    children: currentUrl
-                                }, void 0, false, {
-                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 320,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-xs opacity-60 mt-2",
-                                    children: history[historyIndex]?.title || 'Loading...'
-                                }, void 0, false, {
-                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 321,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                            lineNumber: 318,
-                            columnNumber: 13
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "prose dark:prose-invert max-w-none text-sm",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    children: "🌐 Web Browser"
-                                }, void 0, false, {
-                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 327,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    children: "This is a web browsing interface. You can:"
-                                }, void 0, false, {
-                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 328,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                    className: "opacity-80 text-sm font-medium",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                    children: "Navigate:"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                    lineNumber: 332,
-                                                    columnNumber: 21
-                                                }, this),
-                                                " Enter URL and press Enter or click Go"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                            lineNumber: 332,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                    children: "Back/Forward:"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                    lineNumber: 333,
-                                                    columnNumber: 21
-                                                }, this),
-                                                " Use navigation buttons"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                            lineNumber: 333,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                    children: "Bookmark:"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                    lineNumber: 334,
-                                                    columnNumber: 21
-                                                }, this),
-                                                " Click the star icon to save pages"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                            lineNumber: 334,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                    children: "History:"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                    lineNumber: 335,
-                                                    columnNumber: 21
-                                                }, this),
-                                                " View all visited pages"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                            lineNumber: 335,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                    children: "Refresh:"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                                    lineNumber: 336,
-                                                    columnNumber: 21
-                                                }, this),
-                                                " Reload the current page"
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                            lineNumber: 336,
-                                            columnNumber: 17
-                                        }, this)
+                                        "Loading ",
+                                        currentUrl,
+                                        "..."
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 331,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                    children: "Popular Sites:"
-                                }, void 0, false, {
-                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 339,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "grid grid-cols-2 gap-2 mt-3",
-                                    children: [
-                                        {
-                                            title: 'Google',
-                                            url: 'google.com'
-                                        },
-                                        {
-                                            title: 'GitHub',
-                                            url: 'github.com'
-                                        },
-                                        {
-                                            title: 'Stack Overflow',
-                                            url: 'stackoverflow.com'
-                                        },
-                                        {
-                                            title: 'MDN Web Docs',
-                                            url: 'developer.mozilla.org'
-                                        },
-                                        {
-                                            title: 'YouTube',
-                                            url: 'youtube.com'
-                                        },
-                                        {
-                                            title: 'Twitter',
-                                            url: 'twitter.com'
-                                        }
-                                    ].map((site)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            onClick: ()=>handleNavigate(site.url),
-                                            className: "p-2 rounded border border-blue-300 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900 text-left text-xs",
-                                            children: site.title
-                                        }, site.url, false, {
-                                            fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                            lineNumber: 349,
-                                            columnNumber: 19
-                                        }, this))
-                                }, void 0, false, {
-                                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                                    lineNumber: 340,
+                                    lineNumber: 311,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                            lineNumber: 326,
+                            lineNumber: 309,
                             columnNumber: 13
                         }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                    lineNumber: 317,
-                    columnNumber: 11
-                }, this)
-            }, void 0, false, {
+                    }, void 0, false, {
+                        fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
+                        lineNumber: 308,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("iframe", {
+                        src: currentUrl,
+                        className: "w-full h-full border-none bg-white",
+                        sandbox: "allow-same-origin allow-scripts allow-forms allow-popups",
+                        onLoad: ()=>setIsLoading(false),
+                        onError: ()=>setIsLoading(false)
+                    }, currentUrl, false, {
+                        fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
+                        lineNumber: 315,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                lineNumber: 308,
+                lineNumber: 306,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,18 +490,18 @@ function InternetBrowserApp({}) {
                     children: currentUrl
                 }, void 0, false, {
                     fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                    lineNumber: 365,
+                    lineNumber: 327,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-                lineNumber: 364,
+                lineNumber: 326,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/apps/internet-browser/InternetBrowserApp.tsx",
-        lineNumber: 154,
+        lineNumber: 152,
         columnNumber: 5
     }, this);
 }

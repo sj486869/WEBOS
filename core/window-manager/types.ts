@@ -24,6 +24,7 @@ export type WindowState = {
   id: WindowId;
   appId: AppId;
   title: string;
+  args?: any;
 
   rect: WindowRect;
   restoreRect?: WindowRect;
