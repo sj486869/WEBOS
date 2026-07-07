@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import "tailwindcss"; 
 
 :root {
   --os-bg: #0b0d12;
   --os-fg: #e7eaf2;
 
-  --os-panel: rgba(20, 22, 30, 0.72);
+  --os-panel: rgba(20, 22, 30, 0.72); 
   --os-panel-solid: #14161e;
   --os-border: rgba(231, 234, 242, 0.12);
   --os-shadow: rgba(0, 0, 0, 0.5);
