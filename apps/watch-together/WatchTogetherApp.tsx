@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import type { AppComponentProps } from '@/core/os/appRegistry';
 import { useFileManager } from '@/utils/useFileManager';
 import { api } from '@/utils/api';
+import { MEDIA_SERVER_URL } from '@/utils/config';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Participant = { id: string; name: string; isHost: boolean };
@@ -27,14 +28,7 @@ type RoomVideo = { videoId: string; videoUrl: string; videoName: string } | null
 const EMOJI_QUICK = ['👍', '😂', '❤️', '😮', '😢', '🔥', '🎉', '👏'];
 
 function useMediaServerUrl() {
-  const [url, setUrl] = useState('http://localhost:3001');
-  useEffect(() => {
-    let stored = localStorage.getItem('webos_media_server_url') || 'http://localhost:3001';
-    stored = stored.replace(/\/+$/, '');
-    if (stored.endsWith('/health')) stored = stored.slice(0, -7);
-    setUrl(stored);
-  }, []);
-  return url;
+  return MEDIA_SERVER_URL;
 }
 
 function getAvatarColor(name: string) {

@@ -1,4 +1,5 @@
 import { supabase } from "./supabase";
+import { MEDIA_SERVER_URL } from "./config";
 
 export const api = {
   baseUrl: "",
@@ -235,11 +236,7 @@ export const api = {
    */
   mediaServer: {
     getBaseUrl(): string {
-      if (typeof window === "undefined") return "https://asj.qzz.io";
-      let url = localStorage.getItem("webos_media_server_url") || "https://asj.qzz.io";
-      url = url.replace(/\/+$/, "");
-      if (url.endsWith("/health")) url = url.slice(0, -7);
-      return url;
+      return MEDIA_SERVER_URL;
     },
 
     /** Streaming URL for a file (supports Range requests for seeking) */

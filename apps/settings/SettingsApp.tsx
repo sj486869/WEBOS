@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import type { AppComponentProps } from "@/core/os/appRegistry";
 import { useOSStore } from "@/store/osStore";
 import { useAuthStore } from "@/store/authStore";
+import { MEDIA_SERVER_URL } from "@/utils/config";
 
 const WALLPAPERS: Array<{ name: string; value: string }> = [
   {
@@ -34,28 +35,30 @@ export function SettingsApp({}: AppComponentProps) {
   const setAnimationsEnabled = useOSStore((s) => s.setAnimationsEnabled);
 
   // ── Media Server ───────────────────────────────────────────────────────────
-  const [mediaServerUrl, setMediaServerUrl] = useState("https://asj.qzz.io");
+  const [mediaServerUrl, setMediaServerUrl] = useState(MEDIA_SERVER_URL);
   const [serverStatus, setServerStatus] = useState<"idle" | "checking" | "connected" | "error">("idle");
   const [serverInfo, setServerInfo] = useState<{ files?: number; totalSizeHuman?: string } | null>(null);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("webos_media_server_url");
-    if (stored) setMediaServerUrl(stored);
-  }, []);
-
-  const saveMediaServerUrl = (url: string) => {
+  const saveMediaServerUrl = async (url: string) => {
     setMediaServerUrl(url);
-    localStorage.setItem("webos_media_server_url", url);
     setServerStatus("idle");
     setServerInfo(null);
+    try {
+      await fetch('/api/env', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+    } catch (e) {
+      console.error('Failed to save to .env', e);
+    }
   };
 
   const testConnection = async () => {
     setServerStatus("checking");
     setServerInfo(null);
     try {
-      let baseUrl = mediaServerUrl.replace(/\/+$/, "");
-      if (baseUrl.endsWith("/health")) baseUrl = baseUrl.slice(0, -7);
+      const baseUrl = mediaServerUrl.replace(/\/+$/, "").replace(/\/health$/, "");
       const res = await fetch(`${baseUrl}/health`, {
         signal: AbortSignal.timeout(5000),
       });

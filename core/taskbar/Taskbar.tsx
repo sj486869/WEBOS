@@ -8,6 +8,7 @@ import { TASKBAR_HEIGHT } from "@/core/window-manager/constants";
 import { useWindowStore } from "@/store/windowStore";
 import { useAuthStore } from "@/store/authStore";
 import { UserCircle, LogOut, X, Server, CheckCircle2, XCircle, WifiOff } from "lucide-react";
+import { MEDIA_SERVER_URL } from "@/utils/config";
 
 function MediaServerTray() {
   const [status, setStatus] = useState<"checking" | "connected" | "error">("checking");
@@ -17,10 +18,7 @@ function MediaServerTray() {
     let mounted = true;
     const check = async () => {
       try {
-        const url = localStorage.getItem("webos_media_server_url") || "https://asj.qzz.io";
-        let baseUrl = url.replace(/\/+$/, "");
-        if (baseUrl.endsWith("/health")) baseUrl = baseUrl.slice(0, -7);
-        const res = await fetch(`${baseUrl}/health`, { signal: AbortSignal.timeout(3000) });
+        const res = await fetch(`${MEDIA_SERVER_URL}/health`, { signal: AbortSignal.timeout(3000) });
         if (!res.ok) throw new Error("error");
         const data = await res.json() as { storage?: { files?: number } };
         if (mounted) {
