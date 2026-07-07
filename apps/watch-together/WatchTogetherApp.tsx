@@ -100,11 +100,20 @@ export function WatchTogetherApp({}: AppComponentProps) {
   const chatEndRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLInputElement>(null);
   const isSyncingRef = useRef(false);
+  // Tracks the currently-active sidebar tab without requiring an impure
+  // functional state updater (see addChatMsg below).
+  const sidebarTabRef = useRef(sidebarTab);
+  // Holds a play/seek state that arrived before the <video> element existed
+  // in the DOM (e.g. joining a room where a video is already playing).
+  // Applied once the element mounts and fires onLoadedMetadata.
+  const pendingSyncRef = useRef<{ time: number; playing: boolean } | null>(null);
 
   const { files, loadFiles } = useFileManager();
   const videos = files.filter(f => f.file_type === 'video' || f.mime_type?.startsWith('video/'));
 
   useEffect(() => { loadFiles(); }, [loadFiles]);
+
+  useEffect(() => { sidebarTabRef.current = sidebarTab; }, [sidebarTab]);
 
   // ── Auto-scroll chat ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -113,15 +122,22 @@ export function WatchTogetherApp({}: AppComponentProps) {
   }, [chatMessages, sidebarTab]);
 
   // ── Unread badge when chat tab is not active ────────────────────────────────
+  // NOTE: previously this called setUnreadChat from inside the functional
+  // updater passed to setSidebarTab. Updater functions must be pure (React
+  // may invoke them more than once, e.g. under Strict Mode), so that side
+  // effect could double-increment the unread badge. Reading the tab from a
+  // ref avoids the impure updater entirely.
   const addChatMsg = useCallback((msg: ChatMsg) => {
     setChatMessages(prev => [...prev, msg]);
-    setSidebarTab(prev => {
-      if (prev !== 'chat') setUnreadChat(u => u + 1);
-      return prev;
-    });
+    if (sidebarTabRef.current !== 'chat') {
+      setUnreadChat(u => u + 1);
+    }
   }, []);
 
   // ── Video sync ──────────────────────────────────────────────────────────────
+  // Owns all play()/pause() calls driven by `isPlaying`. Handlers (local or
+  // remote) should just update `isPlaying`/`isSyncingRef` rather than also
+  // calling play()/pause() directly, to avoid double-firing playback calls.
   useEffect(() => {
     const v = videoRef.current;
     if (!v || isSyncingRef.current) return;
@@ -156,19 +172,23 @@ export function WatchTogetherApp({}: AppComponentProps) {
           setScreenState('in-room');
           break;
 
-        case 'joined':
+        case 'joined': {
           setRoomId(msg.roomId as string);
           setIsHost(false);
           setParticipants(msg.participants as Participant[] || []);
           setScreenState('in-room');
           if (msg.currentVideo) setCurrentVideo(msg.currentVideo as RoomVideo);
-          if ((msg.currentTime as number) > 0 && videoRef.current) {
-            isSyncingRef.current = true;
-            videoRef.current.currentTime = msg.currentTime as number;
-            setTimeout(() => { isSyncingRef.current = false; }, 400);
-          }
-          setIsPlaying(msg.isPlaying as boolean ?? false);
+
+          // The <video> element for the in-room screen doesn't exist yet
+          // (we're still rendering the lobby tree), so videoRef.current is
+          // null here. Stash the target time/playing state and apply it
+          // once the element mounts and reports onLoadedMetadata instead.
+          const joinTime = (msg.currentTime as number) || 0;
+          const joinPlaying = (msg.isPlaying as boolean) ?? false;
+          pendingSyncRef.current = { time: joinTime, playing: joinPlaying };
+          setIsPlaying(joinPlaying);
           break;
+        }
 
         case 'participant_joined': {
           const p = msg.participant as Participant;
@@ -266,17 +286,17 @@ export function WatchTogetherApp({}: AppComponentProps) {
     wsRef.current?.close();
     setScreenState('lobby'); setRoomId(''); setIsHost(false);
     setParticipants([]); setChatMessages([]); setCurrentVideo(null); setIsPlaying(false);
+    pendingSyncRef.current = null;
   };
 
   const handlePlayPause = () => {
     if (isSyncingRef.current) return;
     const t = videoRef.current?.currentTime ?? currentTime;
     const newPlaying = !isPlaying;
+    // Only flip state here — the `isPlaying` sync effect above is solely
+    // responsible for calling play()/pause() on the element. Calling it
+    // here too caused overlapping play() requests (benign AbortError spam).
     setIsPlaying(newPlaying);
-    if (videoRef.current) {
-      if (newPlaying) videoRef.current.play().catch(() => {});
-      else videoRef.current.pause();
-    }
     sendMsg({ type: newPlaying ? 'play' : 'pause', time: t });
   };
 
@@ -535,7 +555,27 @@ export function WatchTogetherApp({}: AppComponentProps) {
               <video ref={videoRef} src={currentVideo.videoUrl}
                 preload="metadata"
                 className="w-full h-full object-contain"
-                onLoadedMetadata={() => { if (videoRef.current) setDuration(videoRef.current.duration); }}
+                onLoadedMetadata={() => {
+                  const v = videoRef.current;
+                  if (!v) return;
+                  setDuration(v.duration);
+
+                  // Apply any sync state that arrived before this element
+                  // existed (e.g. joining a room mid-playback).
+                  const pending = pendingSyncRef.current;
+                  if (pending) {
+                    isSyncingRef.current = true;
+                    v.currentTime = pending.time;
+                    setCurrentTime(pending.time);
+                    if (pending.playing) {
+                      v.play().catch(() => setIsPlaying(false));
+                    } else {
+                      v.pause();
+                    }
+                    pendingSyncRef.current = null;
+                    setTimeout(() => { isSyncingRef.current = false; }, 400);
+                  }
+                }}
                 onTimeUpdate={() => { if (videoRef.current && !isSyncingRef.current) setCurrentTime(videoRef.current.currentTime); }}
                 onEnded={() => { setIsPlaying(false); sendMsg({ type: 'pause', time: duration }); }}
               />

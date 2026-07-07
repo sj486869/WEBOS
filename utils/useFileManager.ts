@@ -105,15 +105,17 @@ export function useFileManager() {
   }, [currentUser?.id, currentUser?.role]);
 
   const uploadFile = useCallback(
-    async (file: File) => {
+    async (file: File, destination?: "local" | "b2") => {
       try {
         setError(null);
         const MAX_SUPABASE_SIZE = 50 * 1024 * 1024; // 50MB
         
         let response;
         if (file.size > MAX_SUPABASE_SIZE) {
-          response = await api.mediaServer.uploadFile(file, currentUser?.id);
+          // If > 50MB, it goes to mediaServer and respects the user's destination choice
+          response = await api.mediaServer.uploadFile(file, currentUser?.id, undefined, destination);
         } else {
+          // If <= 50MB, force it to Supabase, ignoring the dropdown
           response = await api.files.upload(file);
         }
 

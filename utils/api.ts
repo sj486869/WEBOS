@@ -288,17 +288,19 @@ export const api = {
     async uploadFile(
       file: File,
       userId?: string,
-      onProgress?: (percent: number) => void
+      onProgress?: (percent: number) => void,
+      destination?: "local" | "b2"
     ): Promise<{ fileId: string; filename: string; size: number; streamUrl: string }> {
       const CHUNK_SIZE = 50 * 1024 * 1024; // 50 MB per chunk
       const baseUrl = this.getBaseUrl();
+      const destQuery = destination === "b2" ? "?destination=b2" : "";
 
       if (file.size <= CHUNK_SIZE) {
         // Single upload
         const formData = new FormData();
         formData.append("file", file);
         if (userId) formData.append("userId", userId);
-        const res = await fetch(`${baseUrl}/upload`, { method: "POST", body: formData });
+        const res = await fetch(`${baseUrl}/upload${destQuery}`, { method: "POST", body: formData });
         if (!res.ok) throw new Error(`Upload failed: ${res.status}`);
         onProgress?.(100);
         return res.json();
@@ -317,7 +319,7 @@ export const api = {
         const formData = new FormData();
         formData.append("file", chunk, file.name);
 
-        const res = await fetch(`${baseUrl}/upload`, {
+        const res = await fetch(`${baseUrl}/upload${destQuery}`, {
           method: "POST",
           headers: {
             "X-File-Id": fileId,
@@ -448,6 +450,34 @@ export const api = {
       }
       return res.json();
     },
+
+    async search(query: string) {
+      const res = await fetch(`${this.getBaseUrl()}/workspace/search?q=${encodeURIComponent(query)}`);
+      if (!res.ok) throw new Error(`Search failed: ${res.status}`);
+      return res.json();
+    },
+  },
+
+  downloader: {
+    getBaseUrl() {
+      if (typeof window !== "undefined") {
+        return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      }
+      return process.env.API_URL || "http://localhost:3001";
+    },
+    async downloadLink(url: string, destination: "local" | "b2" = "local") {
+      const res = await fetch(`${this.getBaseUrl()}/download`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, destination }),
+      });
+      if (!res.ok) {
+        let err = await res.text();
+        try { err = JSON.parse(err).error || err; } catch {}
+        throw new Error(`Download failed: ${err}`);
+      }
+      return res.json();
+    }
   }
 };
 

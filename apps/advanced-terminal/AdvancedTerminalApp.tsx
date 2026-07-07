@@ -1,285 +1,110 @@
 'use client';
 
-import { Terminal, Trash2, Copy, Play } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
-import type { AppComponentProps } from '@/core/os/appRegistry';
+import { useEffect, useRef, useState } from "react";
+import { Terminal } from "xterm";
+import { FitAddon } from "xterm-addon-fit";
+import "xterm/css/xterm.css";
+
+import type { AppComponentProps } from "@/core/os/appRegistry";
 import { useAuthStore } from "@/store/authStore";
-import { api } from "@/utils/api";
-
-interface Command {
-  id: string;
-  text: string;
-  output: string;
-  timestamp: number;
-  status: 'executing' | 'success' | 'error';
-}
-
-interface CommandHistory {
-  text: string;
-  timestamp: number;
-}
-
-const COMMON_COMMANDS = [
-  { cmd: 'whoami', desc: 'Current user' },
-  { cmd: 'pwd', desc: 'Current directory' },
-  { cmd: 'node --version', desc: 'Node.js version' },
-  { cmd: 'npm --version', desc: 'NPM version' },
-  { cmd: 'python --version', desc: 'Python version' },
-  { cmd: 'git --version', desc: 'Git version' },
-  { cmd: 'date', desc: 'Current date/time' },
-  { cmd: 'echo "Hello from Terminal"', desc: 'Echo command' },
-];
-
-function readCommandHistory(): CommandHistory[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const saved = localStorage.getItem('terminal-history');
-    return saved ? (JSON.parse(saved) as CommandHistory[]) : [];
-  } catch (err) {
-    console.error('Failed to load terminal history:', err);
-    return [];
-  }
-}
 
 export function AdvancedTerminalApp({}: AppComponentProps) {
-  const currentUser = useAuthStore((s) => s.currentUser);
-  const [commands, setCommands] = useState<Command[]>([]);
-  const [input, setInput] = useState('');
-  const [inputHistory, setInputHistory] = useState<CommandHistory[]>(readCommandHistory);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const [showQuickCommands, setShowQuickCommands] = useState(false);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const xtermRef = useRef<Terminal | null>(null);
+  const wsRef = useRef<WebSocket | null>(null);
+  const fitAddonRef = useRef<FitAddon | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // Auto scroll to bottom
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [commands]);
+    if (!terminalRef.current) return;
 
-  const saveHistory = (newHistory: CommandHistory[]) => {
-    setInputHistory(newHistory);
-    localStorage.setItem('terminal-history', JSON.stringify(newHistory));
-  };
+    // Initialize xterm.js
+    const term = new Terminal({
+      cursorBlink: true,
+      theme: {
+        background: '#000000',
+        foreground: '#ffffff',
+      },
+      fontFamily: 'monospace',
+      fontSize: 14,
+    });
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
+    
+    term.open(terminalRef.current);
+    fitAddon.fit();
+    
+    xtermRef.current = term;
+    fitAddonRef.current = fitAddon;
 
-  const handleExecuteCommand = async () => {
-    if (!input.trim()) return;
+    // Connect WebSocket
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const wsUrl = backendUrl.replace(/^http/, 'ws') + '/pty';
+    
+    const ws = new WebSocket(wsUrl);
+    wsRef.current = ws;
 
-    // Add to history
-    const newHistory = [{ text: input, timestamp: Date.now() }, ...inputHistory].slice(
-      0,
-      100
-    );
-    saveHistory(newHistory);
-    setHistoryIndex(-1);
-
-    const commandId = Date.now().toString();
-    const newCommand: Command = {
-      id: commandId,
-      text: input,
-      output: '',
-      timestamp: Date.now(),
-      status: 'executing',
+    ws.onopen = () => {
+      term.writeln('\x1b[32mConnected to unrestricted EC2 terminal.\x1b[0m');
+      // Tell backend our size
+      ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
     };
 
-    setCommands((prev) => [...prev, newCommand]);
-    setInput('');
-    setShowQuickCommands(false);
-
-    try {
-      if (input.trim() === 'clear' || input.trim() === 'cls') {
-        setCommands([]);
-        return;
+    ws.onmessage = (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'data') {
+          term.write(msg.data);
+        } else if (msg.type === 'exit') {
+          term.writeln('\r\n\x1b[33mTerminal exited. Reconnect to start a new session.\x1b[0m');
+        }
+      } catch (err) {
+        // Fallback for raw data
+        term.write(event.data);
       }
+    };
 
-      // Check current user role via API
-      const res = await api.workspace.runTerminal(input, currentUser?.role || 'guest');
-      
-      let outputText = '';
-      if (res.stdout) outputText += res.stdout;
-      if (res.stderr) outputText += (outputText ? '\n' : '') + res.stderr;
-      if (res.error) outputText += (outputText ? '\n' : '') + `Error: ${res.error}`;
-      
-      if (!outputText && res.code === 0) {
-        outputText = 'Command executed successfully (no output).';
+    ws.onerror = () => {
+      setError("Failed to connect to backend PTY.");
+      term.writeln('\r\n\x1b[31mError connecting to backend terminal.\x1b[0m');
+    };
+
+    ws.onclose = () => {
+      term.writeln('\r\n\x1b[33mConnection closed.\x1b[0m');
+    };
+
+    // Send keystrokes
+    term.onData((data) => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'data', data }));
       }
+    });
 
-      setCommands((prev) =>
-        prev.map((cmd) =>
-          cmd.id === commandId
-            ? { ...cmd, output: outputText, status: res.code === 0 ? 'success' : 'error' }
-            : cmd
-        )
-      );
-    } catch (err: any) {
-      const errorMsg = err instanceof Error ? err.message : 'Unknown error';
-      setCommands((prev) =>
-        prev.map((cmd) =>
-          cmd.id === commandId
-            ? { ...cmd, output: `Error: ${errorMsg}`, status: 'error' }
-            : cmd
-        )
-      );
-    }
-  };
+    // Handle resize
+    const handleResize = () => {
+      fitAddon.fit();
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+      }
+    };
+    
+    // Listen for resize on the container
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(terminalRef.current);
 
-  const handleHistoryUp = () => {
-    if (inputHistory.length === 0) return;
-
-    let newIndex = historyIndex + 1;
-    if (newIndex >= inputHistory.length) {
-      newIndex = inputHistory.length - 1;
-    }
-
-    setHistoryIndex(newIndex);
-    setInput(inputHistory[newIndex].text);
-  };
-
-  const handleHistoryDown = () => {
-    if (historyIndex <= 0) {
-      setHistoryIndex(-1);
-      setInput('');
-    } else {
-      const newIndex = historyIndex - 1;
-      setHistoryIndex(newIndex);
-      setInput(inputHistory[newIndex].text);
-    }
-  };
-
-  const handleClearTerminal = () => {
-    if (confirm('Clear all terminal history?')) {
-      setCommands([]);
-    }
-  };
-
-  const handleCopyCommand = (cmd: string) => {
-    navigator.clipboard.writeText(cmd);
-  };
+    return () => {
+      resizeObserver.disconnect();
+      ws.close();
+      term.dispose();
+    };
+  }, []);
 
   return (
-    <div className="flex h-full flex-col bg-black text-green-400 font-mono">
-      {/* Header */}
-      <div className="border-b border-green-700 bg-gray-900 px-4 py-3 flex items-center justify-between">
-        <h1 className="font-semibold flex items-center gap-2">
-          <Terminal className="h-5 w-5" />
-          Advanced Terminal
-        </h1>
-        <button
-          onClick={handleClearTerminal}
-          className="flex items-center gap-2 px-3 py-1 text-red-400 hover:text-red-300 border border-red-900 rounded text-sm"
-        >
-          <Trash2 className="h-4 w-4" />
-          Clear
-        </button>
-      </div>
-
-      {/* Quick Commands */}
-      {showQuickCommands && (
-        <div className="border-b border-green-700 bg-gray-900 p-3 grid grid-cols-2 gap-2 max-h-[150px] overflow-auto">
-          {COMMON_COMMANDS.map((cmd, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setInput(cmd.cmd);
-                setShowQuickCommands(false);
-                inputRef.current?.focus();
-              }}
-              className="text-left p-2 rounded border border-green-700 hover:bg-green-900/20 text-xs"
-            >
-              <div className="font-semibold text-green-400">{cmd.cmd}</div>
-              <div className="opacity-60 text-green-600">{cmd.desc}</div>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Terminal Output */}
-      <div className="flex-1 overflow-auto p-4 space-y-3 bg-black">
-        {commands.length === 0 && (
-          <div className="text-green-600 opacity-60 text-sm">
-            <p>$ Advanced Terminal</p>
-            <p>Type &apos;help&apos; for available commands</p>
-            <p>Or press Ctrl+Space to see quick commands</p>
-          </div>
-        )}
-
-        {commands.map((cmd) => (
-          <div key={cmd.id}>
-            {/* Command */}
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-green-600">$</span>
-                <span className="text-green-400">{cmd.text}</span>
-              </div>
-              <button
-                onClick={() => handleCopyCommand(cmd.text)}
-                className="opacity-0 hover:opacity-100 text-green-600 transition"
-              >
-                <Copy className="h-3 w-3" />
-              </button>
-            </div>
-
-            {/* Output */}
-            {cmd.status === 'executing' && (
-              <div className="text-green-600 opacity-60 ml-6 text-sm animate-pulse">
-                ⌛ Executing...
-              </div>
-            )}
-            {cmd.output && (
-              <pre className="text-green-400 ml-6 text-sm whitespace-pre-wrap break-words">
-                {cmd.output}
-              </pre>
-            )}
-            {cmd.status === 'error' && (
-              <div className="text-red-400 ml-6 text-sm">{cmd.output}</div>
-            )}
-          </div>
-        ))}
-
-        <div ref={terminalEndRef} />
-      </div>
-
-      {/* Input Area */}
-      <div className="border-t border-green-700 bg-black p-3">
-        <div className="flex items-center gap-2">
-          <span className="text-green-600">$</span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleExecuteCommand();
-              } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                handleHistoryUp();
-              } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                handleHistoryDown();
-              } else if (e.ctrlKey && e.code === 'Space') {
-                e.preventDefault();
-                setShowQuickCommands(!showQuickCommands);
-              }
-            }}
-            placeholder="Enter command... (Ctrl+Space for quick commands)"
-            className="flex-1 bg-black text-green-400 outline-none border-none"
-            autoFocus
-          />
-          <button
-            onClick={handleExecuteCommand}
-            className="text-green-600 hover:text-green-400 transition"
-          >
-            <Play className="h-4 w-4" />
-          </button>
-        </div>
-
-        {/* Command History Info */}
-        {inputHistory.length > 0 && (
-          <div className="text-xs text-green-600 opacity-50 mt-2">
-            History: {inputHistory.length} commands | Use ↑↓ to navigate
-          </div>
-        )}
-      </div>
+    <div className="flex h-full w-full flex-col bg-black overflow-hidden relative">
+      {error && <div className="absolute top-0 left-0 w-full bg-red-600 text-white px-2 py-1 text-xs z-10">{error}</div>}
+      <div ref={terminalRef} className="flex-1 w-full h-full p-2" />
     </div>
   );
 }

@@ -20,6 +20,7 @@ export const APP_IDS = [
   "website-builder",
   "users",
   "dashboard",
+  "downloader",
   "watch-together",
 ] as const;
 

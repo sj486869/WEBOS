@@ -1,135 +1,110 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Terminal } from "xterm";
+import { FitAddon } from "xterm-addon-fit";
+import "xterm/css/xterm.css";
 
 import type { AppComponentProps } from "@/core/os/appRegistry";
-import { useVfsStore } from "@/store/vfsStore";
 import { useAuthStore } from "@/store/authStore";
-import { api } from "@/utils/api";
-import type { VfsNode, VfsNodeId } from "@/utils/vfs/types";
-
-type Line = { type: "in" | "out"; text: string };
-
-function isFolder(n: VfsNode): n is Extract<VfsNode, { type: "folder" }> {
-  return n.type === "folder";
-}
-
-function joinPath(base: string, rel: string) {
-  if (rel.startsWith("/")) return rel;
-  const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
-  return `${cleanBase}/${rel}`.replaceAll("//", "/");
-}
 
 export function TerminalApp({}: AppComponentProps) {
-  const hydrated = useVfsStore((s) => s.hydrated);
-  const vfs = useVfsStore((s) => s.vfs);
-  const resolve = useVfsStore((s) => s.resolve);
-  const list = useVfsStore((s) => s.list);
-  const getPath = useVfsStore((s) => s.getPath);
-  const mkdir = useVfsStore((s) => s.mkdir);
-  const touch = useVfsStore((s) => s.touch);
-  const rm = useVfsStore((s) => s.rm);
-
-  const [cwdId, setCwdId] = useState<VfsNodeId>(vfs.rootId);
-  const [lines, setLines] = useState<Line[]>([
-    { type: "out", text: "web-os terminal — type 'help'" },
-  ]);
-  const [input, setInput] = useState("");
-  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const xtermRef = useRef<Terminal | null>(null);
+  const wsRef = useRef<WebSocket | null>(null);
+  const fitAddonRef = useRef<FitAddon | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ block: "end" });
-  }, [lines]);
+    if (!terminalRef.current) return;
 
-  const prompt = useMemo(() => {
-    const p = getPath(cwdId);
-    return `guest@webos:${p}$`;
-  }, [cwdId, getPath]);
+    // Initialize xterm.js
+    const term = new Terminal({
+      cursorBlink: true,
+      theme: {
+        background: '#000000',
+        foreground: '#ffffff',
+      },
+      fontFamily: 'monospace',
+      fontSize: 14,
+    });
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
+    
+    term.open(terminalRef.current);
+    fitAddon.fit();
+    
+    xtermRef.current = term;
+    fitAddonRef.current = fitAddon;
 
-  function println(text: string) {
-    setLines((l) => [...l, { type: "out", text }]);
-  }
+    // Connect WebSocket
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const wsUrl = backendUrl.replace(/^http/, 'ws') + '/pty';
+    
+    const ws = new WebSocket(wsUrl);
+    wsRef.current = ws;
 
-  const currentUser = useAuthStore((s) => s.currentUser);
+    ws.onopen = () => {
+      term.writeln('\x1b[32mConnected to unrestricted EC2 terminal.\x1b[0m');
+      // Tell backend our size
+      ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+    };
 
-  async function run(cmdline: string) {
-    const trimmed = cmdline.trim();
-    if (!trimmed) return;
-
-    setLines((l) => [...l, { type: "in", text: `${prompt} ${trimmed}` }]);
-
-    const [cmd, ...rest] = trimmed.split(/\s+/);
-    const arg = rest.join(" ");
-
-    // Keep some local commands for navigation
-    try {
-      if (cmd === "clear") {
-        setLines([]);
-        return;
-      }
-      if (cmd === "cd") {
-        const nextPath = arg ? joinPath(getPath(cwdId), arg) : "/";
-        const node = resolve(nextPath);
-        if (!node) {
-          println(`cd: no such file or directory: ${arg}`);
-          return;
+    ws.onmessage = (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'data') {
+          term.write(msg.data);
+        } else if (msg.type === 'exit') {
+          term.writeln('\r\n\x1b[33mTerminal exited. Reconnect to start a new session.\x1b[0m');
         }
-        if (!isFolder(node)) {
-          println(`cd: not a directory: ${arg}`);
-          return;
-        }
-        setCwdId(node.id);
-        return;
+      } catch (err) {
+        // Fallback for raw data
+        term.write(event.data);
       }
-      
-      // Execute remotely on backend
-      const res = await api.workspace.runTerminal(`cd ${getPath(cwdId)} && ${trimmed}`, currentUser?.role || 'guest');
-      if (res.stdout) println(res.stdout);
-      if (res.stderr) println(res.stderr);
-      if (res.error) println(`Error: ${res.error}`);
-      
-    } catch (e: any) {
-      println(e.message || "Execution failed");
-    }
-  }
+    };
 
-  if (!hydrated) {
-    return <div className="p-4 text-sm opacity-70">Booting terminal…</div>;
-  }
+    ws.onerror = () => {
+      setError("Failed to connect to backend PTY.");
+      term.writeln('\r\n\x1b[31mError connecting to backend terminal.\x1b[0m');
+    };
+
+    ws.onclose = () => {
+      term.writeln('\r\n\x1b[33mConnection closed.\x1b[0m');
+    };
+
+    // Send keystrokes
+    term.onData((data) => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'data', data }));
+      }
+    });
+
+    // Handle resize
+    const handleResize = () => {
+      fitAddon.fit();
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+      }
+    };
+    
+    // Listen for resize on the container
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(terminalRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+      ws.close();
+      term.dispose();
+    };
+  }, []);
 
   return (
-    <div className="flex h-full flex-col bg-black/25 font-mono text-sm">
-      <div className="flex-1 overflow-auto p-3">
-        {lines.map((l, i) => (
-          <pre
-            key={i}
-            className={`whitespace-pre-wrap leading-5 ${l.type === "in" ? "text-[color:var(--os-fg)]" : "text-white/80"}`}
-          >
-            {l.text}
-          </pre>
-        ))}
-        <div ref={bottomRef} />
-      </div>
-      <div className="border-t border-white/10 p-2">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            run(input);
-            setInput("");
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="truncate text-white/70">{prompt}</span>
-            <input
-              className="min-w-0 flex-1 rounded-md bg-black/40 px-2 py-1 text-white/90 outline-none focus:ring-2 focus:ring-[color:var(--os-accent)]"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              autoFocus
-              spellCheck={false}
-            />
-          </div>
-        </form>
-      </div>
+    <div className="flex h-full w-full flex-col bg-black overflow-hidden relative">
+      {error && <div className="absolute top-0 left-0 w-full bg-red-600 text-white px-2 py-1 text-xs z-10">{error}</div>}
+      <div ref={terminalRef} className="flex-1 w-full h-full p-2" />
     </div>
   );
 }

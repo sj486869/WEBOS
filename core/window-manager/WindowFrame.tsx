@@ -71,14 +71,16 @@ export function WindowFrame({
 
   const style = useMemo(() => {
     const r = win.rect;
+    const isFullyMinimized = win.isMinimized && win.lifecycle !== "minimizing";
     return {
       left: r.x,
       top: r.y,
       width: r.w,
       height: r.h,
       zIndex: win.zIndex,
+      display: isFullyMinimized ? "none" : undefined,
     };
-  }, [win.rect, win.zIndex]);
+  }, [win.rect, win.zIndex, win.isMinimized, win.lifecycle]);
 
   const animate = useMemo(() => {
     if (!animationsEnabled) return undefined;

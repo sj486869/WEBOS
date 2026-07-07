@@ -26,6 +26,7 @@ import {
   BarChart4,
   Users,
   MonitorSmartphone,
+  Download,
 } from "lucide-react";
 
 import type { AppId } from "@/core/os/appIds";
@@ -139,8 +140,18 @@ const DashboardApp = dynamic(
   () => import("@/apps/dashboard/DashboardApp").then((m) => m.DashboardApp),
   { ssr: false }
 );
+const DownloaderApp = dynamic(
+  () => import("@/apps/downloader/DownloaderApp").then((m) => m.DownloaderApp),
+  { ssr: false }
+);
 
 export const appRegistry: Record<AppId, AppDefinition> = {
+  downloader: {
+    id: "downloader" as AppId,
+    title: "Downloader",
+    icon: Download,
+    component: DownloaderApp,
+  },
   "file-explorer": {
     id: "file-explorer",
     title: "File Explorer",

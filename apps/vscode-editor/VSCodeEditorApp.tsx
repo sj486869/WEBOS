@@ -164,6 +164,17 @@ export function VSCodeEditorApp({}: AppComponentProps) {
   const [terminalOutput, setTerminalOutput] = useState<{stdout: string, stderr: string, error: string} | null>(null);
   const [selectedPanel, setSelectedPanel] = useState('explorer');
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; node: TreeNode } | null>(null);
+
+  // ── Search State ──
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<{file: string, line: number, text: string}[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // ── Settings State ──
+  const [editorTheme, setEditorTheme] = useState('vs-dark');
+  const [fontSize, setFontSize] = useState(14);
+  const [minimapEnabled, setMinimapEnabled] = useState(false);
+  const [wordWrap, setWordWrap] = useState<'off'|'on'>('off');
   
   const [terminals, setTerminals] = useState<{id: string, name: string, history: {type: 'cmd'|'out'|'err', text: string}[], input: string}[]>([
     { id: 'term-1', name: 'bash', history: [], input: '' }
@@ -278,6 +289,20 @@ export function VSCodeEditorApp({}: AppComponentProps) {
   const formatCode = async () => {
     if (editorRef.current) {
       await editorRef.current.getAction('editor.action.formatDocument')?.run();
+    }
+  };
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    setIsSearching(true);
+    try {
+      const res = await api.workspace.search(searchQuery);
+      setSearchResults(res.results || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -552,9 +577,73 @@ export function VSCodeEditorApp({}: AppComponentProps) {
                 </div>
               </div>
             )}
-            {selectedPanel !== 'explorer' && (
+            {selectedPanel === 'search' && (
+              <div className="p-2 flex flex-col h-full">
+                <h3 className="text-xs font-semibold text-gray-400 uppercase px-2 mb-2">Search</h3>
+                <form onSubmit={handleSearch} className="px-2 mb-2 flex gap-1">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="Search files..."
+                    className="flex-1 bg-[#3c3c3c] text-white text-xs px-2 py-1 rounded outline-none border border-transparent focus:border-[#007fd4]"
+                  />
+                  <button type="submit" disabled={isSearching} className="bg-[#3c3c3c] hover:bg-[#4d4d4d] px-2 rounded text-xs flex items-center justify-center">
+                    <Search className="h-3 w-3" />
+                  </button>
+                </form>
+                <div className="flex-1 overflow-auto px-2">
+                  {isSearching ? (
+                    <div className="text-xs text-gray-500 mt-2">Searching...</div>
+                  ) : searchResults.length > 0 ? (
+                    <div className="text-xs">
+                      {searchResults.map((res, i) => (
+                        <div key={i} onClick={() => handleOpenFile(res.file, res.file.split('/').pop() || '')} className="py-1 cursor-pointer hover:bg-[#37373d] rounded px-1 mb-1">
+                          <div className="text-blue-400 font-medium truncate">{res.file} <span className="text-gray-500 text-[10px]">:{res.line}</span></div>
+                          <div className="text-gray-400 truncate opacity-80 pl-2">{res.text}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    searchQuery && <div className="text-xs text-gray-500 mt-2">No results found.</div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {selectedPanel === 'settings' && (
+              <div className="p-2">
+                <h3 className="text-xs font-semibold text-gray-400 uppercase px-2 mb-4">Settings</h3>
+                <div className="px-2 space-y-4">
+                  <div>
+                    <label className="text-xs text-gray-300 block mb-1">Theme</label>
+                    <select value={editorTheme} onChange={e => setEditorTheme(e.target.value)} className="w-full bg-[#3c3c3c] text-xs p-1 rounded border border-[#3c3c3c] outline-none">
+                      <option value="vs-dark">Dark (Visual Studio)</option>
+                      <option value="light">Light (Visual Studio)</option>
+                      <option value="hc-black">High Contrast Black</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-300 block mb-1">Font Size: {fontSize}px</label>
+                    <input type="range" min="10" max="24" value={fontSize} onChange={e => setFontSize(Number(e.target.value))} className="w-full accent-[#007fd4]" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs text-gray-300">Minimap</label>
+                    <input type="checkbox" checked={minimapEnabled} onChange={e => setMinimapEnabled(e.target.checked)} className="accent-[#007fd4]" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs text-gray-300">Word Wrap</label>
+                    <input type="checkbox" checked={wordWrap === 'on'} onChange={e => setWordWrap(e.target.checked ? 'on' : 'off')} className="accent-[#007fd4]" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedPanel === 'git' && (
               <div className="p-4 text-center text-gray-500">
-                <p className="text-xs">Feature not implemented</p>
+                <GitBranch className="h-8 w-8 mx-auto mb-2 opacity-20" />
+                <p className="text-xs">Source Control (Mock)</p>
+                <p className="text-[10px] mt-2 opacity-60">Git integration not available</p>
               </div>
             )}
           </div>
@@ -664,16 +753,16 @@ export function VSCodeEditorApp({}: AppComponentProps) {
 
                   <Editor
                     height="100%"
-                    theme="vs-dark"
+                    theme={editorTheme}
                     path={activeFile.path}
                     defaultLanguage={activeFile.language}
                     value={activeFile.content}
                     onChange={(val) => updateTab(activeFile.id, val)}
                     onMount={handleEditorDidMount}
                     options={{
-                      minimap: { enabled: true },
-                      fontSize: 14,
-                      wordWrap: 'on',
+                      minimap: { enabled: minimapEnabled },
+                      fontSize: fontSize,
+                      wordWrap: wordWrap,
                       formatOnPaste: true,
                       padding: { top: 16 },
                       automaticLayout: true,

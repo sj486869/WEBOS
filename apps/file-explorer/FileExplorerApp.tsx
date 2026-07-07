@@ -156,6 +156,7 @@ export function FileExplorerApp({}: AppComponentProps) {
   const [viewMode, setViewMode] = useState<"local" | "cloud">("local");
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string>("");
+  const [uploadDestination, setUploadDestination] = useState<"local" | "b2">("local");
 
   const users = useAuthStore((s) => s.users);
   const currentUser = useAuthStore((s) => s.currentUser);
@@ -201,7 +202,7 @@ export function FileExplorerApp({}: AppComponentProps) {
     try {
       for (const file of files) {
         try {
-          await uploadFile(file);
+          await uploadFile(file, uploadDestination);
           successCount++;
           setUploadStatus(`Uploaded ${successCount}/${files.length}...`);
         } catch (err) {
@@ -315,18 +316,29 @@ export function FileExplorerApp({}: AppComponentProps) {
                 </button>
               </>
             ) : (
-              <label className="inline-flex items-center gap-2 rounded-lg border border-[color:var(--os-border)] px-3 py-1.5 text-sm hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
-                <Upload className="h-4 w-4" />
-                {uploading ? "Uploading..." : "Upload File"}
-                <input
-                  type="file"
-                  multiple
-                  onChange={handleFileUpload}
+              <div className="flex items-center gap-2">
+                <select
+                  value={uploadDestination}
+                  onChange={(e) => setUploadDestination(e.target.value as "local" | "b2")}
                   disabled={uploading}
-                  className="hidden"
-                  accept="*"
-                />
-              </label>
+                  className="rounded-lg border border-[color:var(--os-border)] bg-transparent px-2 py-1.5 text-sm hover:bg-black/5 dark:hover:bg-white/5 outline-none"
+                >
+                  <option value="local">Save to: Local</option>
+                  <option value="b2">Save to: B2</option>
+                </select>
+                <label className="inline-flex items-center gap-2 rounded-lg border border-[color:var(--os-border)] px-3 py-1.5 text-sm hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
+                  <Upload className="h-4 w-4" />
+                  {uploading ? "Uploading..." : "Upload File"}
+                  <input
+                    type="file"
+                    multiple
+                    onChange={handleFileUpload}
+                    disabled={uploading}
+                    className="hidden"
+                    accept="*"
+                  />
+                </label>
+              </div>
             )}
           </div>
         </header>
