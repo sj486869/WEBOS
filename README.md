@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 WEBOS
 
-## Getting Started
+A modern web-based operating system experience built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
 
-First, run the development server:
+> Fast • Responsive • Beautiful • Lightweight
+
+## 🔗 Live Demo
+
+🌍 https://webos.shopwithsuman.in/
+
+## 📸 Preview
+
+![WEBOS Preview](https://webos.shopwithsuman.in/og-image.png)
+
+> *(Replace the image path with your actual screenshot if available.)*
+
+---
+
+## ✨ Features
+
+- 🖥️ Desktop-style interface
+- ⚡ Lightning-fast performance
+- 📱 Fully Responsive
+- 🎨 Modern UI/UX
+- 🌙 Dark Mode Support
+- 🪟 Window Management
+- 🔍 Smooth Animations
+- 🚀 Optimized with Next.js
+
+---
+
+## 🛠️ Built With
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Node.js
+
+---
+
+## 📦 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/sj486869/WEBOS.git
+```
+
+Move into the project
+
+```bash
+cd WEBOS
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+WEBOS
+│
+├── app
+├── components
+├── hooks
+├── lib
+├── public
+├── styles
+├── types
+└── utils
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Deployment
 
-## Deploy on Vercel
+Deploy easily on **Vercel** or any platform that supports Next.js.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👨‍💻 Author
+
+**Suman Jana**
+
+🌐 Website: https://webos.shopwithsuman.in/
+
+🐙 GitHub: https://github.com/sj486869
+
+---
+
+## ⭐ Support
+
+If you like this project, please consider giving it a ⭐ on GitHub.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
