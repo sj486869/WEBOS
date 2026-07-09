@@ -1,59 +1,72 @@
-# 🌐 WebOS
+# 🌐 WEBOS
 
-A modern and responsive web application built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
+A modern web-based operating system experience built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.
 
-🔗 **Live Demo:** https://webos.shopwithsuman.in/
+> Fast • Responsive • Beautiful • Lightweight
+
+## 🔗 Live Demo
+
+🌍 https://webos.shopwithsuman.in/
+
+## 📸 Preview
+
+![WEBOS Preview](https://webos.shopwithsuman.in/og-image.png)
+
+> *(Replace the image path with your actual screenshot if available.)*
 
 ---
 
 ## ✨ Features
 
-- ⚡ Built with Next.js 15
-- 🎨 Responsive UI
-- 🌙 Modern Design
-- 🚀 Fast Performance
-- 📱 Mobile Friendly
-- 🔒 Secure & Optimized
+- 🖥️ Desktop-style interface
+- ⚡ Lightning-fast performance
+- 📱 Fully Responsive
+- 🎨 Modern UI/UX
+- 🌙 Dark Mode Support
+- 🪟 Window Management
+- 🔍 Smooth Animations
+- 🚀 Optimized with Next.js
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Built With
 
 - Next.js
 - React
 - TypeScript
 - Tailwind CSS
+- Framer Motion
 - Node.js
 
 ---
 
-## 🚀 Getting Started
+## 📦 Installation
 
-Clone the repository:
-
-```bash
-git clone https://github.com/your-username/your-repository.git
-```
-
-Go to the project directory:
+Clone the repository
 
 ```bash
-cd your-repository
+git clone https://github.com/sj486869/WEBOS.git
 ```
 
-Install dependencies:
+Move into the project
+
+```bash
+cd WEBOS
+```
+
+Install dependencies
 
 ```bash
 npm install
 ```
 
-Start the development server:
+Start the development server
 
 ```bash
 npm run dev
 ```
 
-Open your browser:
+Open
 
 ```
 http://localhost:3000
@@ -61,32 +74,45 @@ http://localhost:3000
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
-app/
-components/
-public/
-styles/
-lib/
+WEBOS
+│
+├── app
+├── components
+├── hooks
+├── lib
+├── public
+├── styles
+├── types
+└── utils
 ```
 
 ---
 
-## 🌍 Live Website
+## 🚀 Deployment
 
-https://webos.shopwithsuman.in/
+Deploy easily on **Vercel** or any platform that supports Next.js.
+
+---
+
+## 👨‍💻 Author
+
+**Suman Jana**
+
+🌐 Website: https://webos.shopwithsuman.in/
+
+🐙 GitHub: https://github.com/sj486869
+
+---
+
+## ⭐ Support
+
+If you like this project, please consider giving it a ⭐ on GitHub.
 
 ---
 
 ## 📄 License
 
 This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Developer
-
-**Suman Jana**
-
-Website: https://webos.shopwithsuman.in/
