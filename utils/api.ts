@@ -457,10 +457,7 @@ export const api = {
 
   downloader: {
     getBaseUrl() {
-      if (typeof window !== "undefined") {
-        return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-      }
-      return process.env.API_URL || "http://localhost:3001";
+      return MEDIA_SERVER_URL;
     },
     async downloadLink(url: string, destination: "local" | "b2" = "local") {
       const res = await fetch(`${this.getBaseUrl()}/download`, {
@@ -471,7 +468,7 @@ export const api = {
       if (!res.ok) {
         let err = await res.text();
         try { err = JSON.parse(err).error || err; } catch {}
-        throw new Error(`Download failed: ${err}`);
+        throw new Error(`${err}`);
       }
       return res.json();
     }
