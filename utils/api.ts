@@ -73,7 +73,8 @@ export const api = {
 
       const fileExt = file.name.split(".").pop()?.toLowerCase() || "";
       const originalFilename = file.name;
-      const uniqueFilename = `${Math.random().toString(36).substring(2, 15)}_${originalFilename}`;
+      const safeOriginalFilename = originalFilename.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+      const uniqueFilename = `${Math.random().toString(36).substring(2, 15)}_${safeOriginalFilename}`;
 
       const { data: storageData, error: storageError } = await supabase.storage
         .from("uploads")
